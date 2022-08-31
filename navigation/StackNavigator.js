@@ -27,27 +27,13 @@ const StackNavigator = () =>{
                 headerBackTitleVisible: false,
                 headerRight:()=>(
                     <View style={{flexDirection:"row", marginHorizontal:10}}>
-                    <TouchableOpacity onPress={()=>{navigation.navigate("SearchPage");}}><Fontisto style={styles.fontImg}name='search'/></TouchableOpacity>
+                    <TouchableOpacity onPress={()=>{navigation.navigate("SearchPage")}}><Fontisto style={styles.fontImg}name='search'/></TouchableOpacity>
                     <TouchableOpacity onPress={link}><Fontisto style={styles.fontImg} name='instagram'/></TouchableOpacity>
                     </View>
                     )
-
             })}  
         >
 
-            {/* <Stack.Group screenOptions={({navigation})=>({
-                presentation:'modal',
-                headerRight:()=>(
-                <View style={{flexDirection:"row", marginHorizontal:10}}>
-                <TouchableOpacity onPress={()=>{navigation.navigate("SearchPage")}}><Fontisto style={styles.fontImg}name='search'/></TouchableOpacity>
-                <TouchableOpacity onPress={link}><Fontisto style={styles.fontImg} name='instagram'/></TouchableOpacity>
-                </View>
-                )
-            })
-            }>
-            <Stack.Screen name="TATOO NINE" component={MainPage}/>
-            <Stack.Screen name="SearchPage" component={SearchPage}/>    
-            </Stack.Group> */}
             <Stack.Screen name="TATOO NINE" component={MainPage}/>
             <Stack.Screen name="DetailPage" component={DetailPage}/>
             <Stack.Screen name="SearchPage" component={SearchPage}/> 
