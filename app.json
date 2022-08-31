@@ -1,0 +1,39 @@
+{
+  "expo": {
+    "name": "tatoo_nine",
+    "slug": "tatoo_nine",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true,
+      "buildNumber": "1.0.0",
+      "bundleIdentifier": "com.tatoo.nine",
+      "config": {
+        "googleMobileAdsAppId": "ca-app-pub-1622427124321210~8345725157"
+      }
+    },
+    "android": {
+          "package": "com.tatoo.nine",
+          "versionCode": 1,
+          "config": {
+            "googleMobileAdsAppId": ""
+          }
+  },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    }
+  }
+}
