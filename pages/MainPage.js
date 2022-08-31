@@ -21,7 +21,6 @@ export default function MainPage({navigation, content, route}) {
     const onChangeText =(payload)=>setText(payload);
     // const [submit, onSubmit] = useState(""); 검색기능
     
-    
     useEffect(()=>{
       setTimeout(()=>{
         firebase_db.ref('/images').once('value').then((snapshot)=>{
@@ -47,8 +46,6 @@ export default function MainPage({navigation, content, route}) {
       }
     }
     
-    
-    
   return (
     
     <View>
@@ -56,15 +53,15 @@ export default function MainPage({navigation, content, route}) {
       <ScrollView>
         
       <View style={styles.BtnContainer}>
-        <TouchableOpacity style={styles.Btn} onPress={()=>{navigation.navigate("DetailPage")}}>
+        <TouchableOpacity style={styles.Btn} onPress={()=>{navigation.navigate("DetailPage",content)}}>
           <Image style={styles.BtnImg} source={{uri:"https://firebasestorage.googleapis.com/v0/b/sparta-myhoneytip-seop.appspot.com/o/images%2Fb041371d22445e3ff82d4c7c907e08d3.jpg?alt=media&token=094be119-62d0-45f9-b2d8-13c4a9751326"}}/>
           <Text style={styles.BtnText}>블랙워크</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.Btn} onPress={()=>{navigation.navigate("DetailPage")}}>
+        <TouchableOpacity style={styles.Btn} onPress={()=>{navigation.navigate("DetailPage",content)}}>
           <Image style={styles.BtnImg} source={{uri:"https://firebasestorage.googleapis.com/v0/b/sparta-myhoneytip-seop.appspot.com/o/images%2F0d27691e4a7363e002823a8d73ddc58c.jpg?alt=media&token=46b23130-5c12-4197-bb56-7fd8820f8af0"}}/>
           <Text style={styles.BtnText}>블랙앤그레이</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.Btn} onPress={()=>{navigation.navigate("DetailPage")}}>
+        <TouchableOpacity style={styles.Btn} onPress={()=>{navigation.navigate("DetailPage",content)}}>
           <Image style={styles.BtnImg} source={{uri:"https://firebasestorage.googleapis.com/v0/b/sparta-myhoneytip-seop.appspot.com/o/images%2Faa.jpg?alt=media&token=793768a5-ef91-4f81-bb4e-ce6eb0c135d2"}}/>
           <Text style={styles.BtnText}>올드스쿨</Text>
         </TouchableOpacity>

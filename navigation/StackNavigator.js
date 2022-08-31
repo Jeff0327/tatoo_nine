@@ -13,29 +13,28 @@ const link =()=>{
     Linking.openURL('https://www.instagram.com/tattooist_nine/');
     
 }
-const StackNavigator = ({navigation}) =>{
+const StackNavigator = () =>{
     return (
         <Stack.Navigator initialRouteName='MainPage'
-            screenOptions={{
+            screenOptions={({navigation})=>({
                 headerStyle: {
                     backgroundColor: "white",
                     borderBottomColor: "white",
                     shadowColor: "white",
-                    
                 },
                 headerTitleAlign:"Left",
                 headerTintColor: "#000",
                 headerBackTitleVisible: false,
                 headerRight:()=>(
-                    
                     <View style={{flexDirection:"row", marginHorizontal:10}}>
                     <TouchableOpacity onPress={()=>{navigation.navigate("SearchPage");}}><Fontisto style={styles.fontImg}name='search'/></TouchableOpacity>
                     <TouchableOpacity onPress={link}><Fontisto style={styles.fontImg} name='instagram'/></TouchableOpacity>
                     </View>
                     )
 
-            }}   
+            })}  
         >
+
             {/* <Stack.Group screenOptions={({navigation})=>({
                 presentation:'modal',
                 headerRight:()=>(
