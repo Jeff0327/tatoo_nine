@@ -36,17 +36,12 @@ const StackNavigator = () =>{
         >
 
             <Stack.Screen name="TATOO NINE" component={MainPage}/>
-
             <Stack.Screen name="DetailPage" component={DetailPage} options={()=>({headerTitle:()=>{return (
             <Text style={styles.DetailTitle}>장르</Text>
             )}})}/>
             <Stack.Screen name="SearchPage" component={SearchPage} options={()=>({ headerTitle:()=>{return (
                 <TextInput style={styles.Input} placeholder='타투검색' keyboardType="web-search"></TextInput>
             )}, headerRight:()=>null})}/> 
-
-            <Stack.Screen name="DetailPage" component={DetailPage}/>
-            <Stack.Screen name="SearchPage" component={SearchPage}/> //option={{header:()=>null}} 
-
         </Stack.Navigator>
         
     )
