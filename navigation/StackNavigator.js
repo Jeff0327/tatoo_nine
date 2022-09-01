@@ -36,7 +36,7 @@ const StackNavigator = () =>{
 
             <Stack.Screen name="TATOO NINE" component={MainPage}/>
             <Stack.Screen name="DetailPage" component={DetailPage}/>
-            <Stack.Screen name="SearchPage" component={SearchPage}/> 
+            <Stack.Screen name="SearchPage" component={SearchPage}/> //option={{header:()=>null}} 
         </Stack.Navigator>
         
     )
