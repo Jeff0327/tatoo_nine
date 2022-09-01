@@ -5,13 +5,11 @@ export default function SearchPage(){
     
     const [text, setText] = useState("");
 
-    const onChange=()=>{
-        
-    }
+    
     return(
         
         <View>
-            <TextInput style={styles.fontstyle} placeholder="TATOO 검색" value={text} onChange={onChange}></TextInput>
+            
 
         </View>
     )
