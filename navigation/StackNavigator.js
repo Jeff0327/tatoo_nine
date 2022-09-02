@@ -32,6 +32,7 @@ const StackNavigator = () =>{
                     <TouchableOpacity onPress={link}><Fontisto style={styles.fontImg} name='instagram'/></TouchableOpacity>
                     </View>
                     )
+                ,
             })}  
         >
 

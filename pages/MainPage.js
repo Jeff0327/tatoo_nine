@@ -37,7 +37,7 @@ export default function MainPage({navigation, content, route}) {
     
     
     const onFilter =(setfilt)=>{
-      if(setfilt =="전체보기"){
+      if(setfilt =="등"){
         onSetState(onstate)
       }else{
         onSetState(state.filter((d)=>{
@@ -89,26 +89,30 @@ export default function MainPage({navigation, content, route}) {
           return(<ImagePage content={content} key={i} navigation={navigation}/>)
         })}
       </ScrollView>
-      
+      <ScrollView style={styles.mainImgContainer} horizontal = {true} pagingEnabled ={true}>
+        {onstate.map((content, i)=>{
+          return(<ImagePage content={content} key={i} navigation={navigation}/>)
+        })}
+      </ScrollView>
       <StatusBar style="auto" />
       </ScrollView>
-      <View style={styles.bannerContainer}>
-    {Platform.OS === 'ios' ? (
-              <AdMobBanner
-                bannerSize="fullBanner"
-                servePersonalizedAds={true}
-                adUnitID="ca-app-pub-5579008343368676/6885179499"
-                style={styles.banner}
-              />
-          ) : (
-              <AdMobBanner
-                bannerSize="fullBanner"
-                servePersonalizedAds={true}
-                adUnitID="ca-app-pub-5579008343368676/9202552776"
-                style={styles.banner}
-              />
-          )}
-    </View>
+        <View style={styles.bannerContainer}>
+      {Platform.OS === 'ios' ? (
+                <AdMobBanner
+                  bannerSize="fullBanner"
+                  servePersonalizedAds={true}
+                  adUnitID="ca-app-pub-5579008343368676/6885179499"
+                  style={styles.banner}
+                />
+            ) : (
+                <AdMobBanner
+                  bannerSize="fullBanner"
+                  servePersonalizedAds={true}
+                  adUnitID="ca-app-pub-5579008343368676/9202552776"
+                  style={styles.banner}
+                />
+            )}
+      </View>
     </View>
     
   );
@@ -131,10 +135,7 @@ const styles = StyleSheet.create({
   searchbar:{
     flex:1,
     flexDirection:"row",
-    
-    
   },
-  
     MainContainer:{
         flexDirection:"row",
         alignContent:"space-around",
@@ -146,16 +147,6 @@ const styles = StyleSheet.create({
     marginLeft:"25%",
     fontFamily:"Georgia",
     fontSize:30,
-  },
-  insta:{
-    justifyContent:"flex-end",
-    alignSelf:"flex-end",
-    
-  },
-  instaImg:{
-    fontSize:35,
-    marginRight:5,
-    alignSelf:"flex-end",
   },
   BtnContainer:{
     flex:1,
@@ -176,10 +167,8 @@ const styles = StyleSheet.create({
     alignItems:"center",
     justifyContent:"space-around",
     height:"200%",
-    
   },
   BtnImg:{
-    
     resizeMode:"center",
     width:"100%",
     height:"160%",
@@ -190,17 +179,6 @@ const styles = StyleSheet.create({
   },
   mainImgContainer:{
     marginTop:10,
-    marginLeft:7,
-    paddingBottom:10,
-    // width:400,
-    // height:300,
-  },
-  mainImg:{
-    width : screenWidth,
-    height : screenHeight-300,
-    justifyContent:"center",
-    alignItems:"center",
-    
   },
   bannerContainer:{
     marginTop:15,
@@ -209,6 +187,5 @@ const styles = StyleSheet.create({
   banner:{
     width:"100%",
     height:100,
-    
   }
 });
