@@ -14,6 +14,11 @@ const link =()=>{
     Linking.openURL('https://www.instagram.com/tattooist_nine/');
     
 }
+const searchData = async(text)=>{
+    // try{
+    //     const res = await fetch('https://tatoo-nine-default-rtdb.asia-southeast1.firebasedatabase.app/'),
+    // }
+}
 const StackNavigator = () =>{
     return (
         <Stack.Navigator initialRouteName='MainPage'
@@ -41,7 +46,7 @@ const StackNavigator = () =>{
             <Text style={styles.DetailTitle}>장르</Text>
             )}})}/>
             <Stack.Screen name="SearchPage" component={SearchPage} options={()=>({ headerTitle:()=>{return (
-                <TextInput style={styles.Input} placeholder='타투검색' keyboardType="web-search"></TextInput>
+                <TextInput style={styles.Input} placeholder='타투검색' keyboardType="web-search" onChange={(text)=>searchData(text)}></TextInput>
             )}, headerRight:()=>null})}/> 
         </Stack.Navigator>
         
