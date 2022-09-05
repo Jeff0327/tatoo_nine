@@ -5,6 +5,7 @@ import { StyleSheet, Image,View, Text, ScrollView,Button,TouchableOpacity,TextIn
 import DetailPage from '../pages/DetailPage';
 import MainPage from '../pages/MainPage';
 import SearchPage from '../pages/SearchPage';
+import ImagePage from '../pages/ImagePage';
 import { Fontisto } from "@expo/vector-icons";
 
 
@@ -45,6 +46,7 @@ const StackNavigator = () =>{
             <Stack.Screen name="DetailPage" component={DetailPage} options={()=>({headerTitle:()=>{return (
             <Text style={styles.DetailTitle}>장르</Text>
             )}})}/>
+            <Stack.Screen name="ImagePage" component={ImagePage}/>
             <Stack.Screen name="SearchPage" component={SearchPage} options={()=>({ headerTitle:()=>{return (
                 <TextInput style={styles.Input} placeholder='타투검색' keyboardType="web-search" onChange={(text)=>searchData(text)}></TextInput>
             )}, headerRight:()=>null})}/> 

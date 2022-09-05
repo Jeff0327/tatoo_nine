@@ -76,7 +76,7 @@ export default function MainPage({navigation, content, route}) {
           <Image style={styles.BtnImg} source={{uri:"https://firebasestorage.googleapis.com/v0/b/tatoo-nine.appspot.com/o/images%2F743420a602158d2b903973c9d5b36d6d.jpg?alt=media&token=f2cf53e9-09cf-4960-b30a-e6fcc78fde89"}}/>
           <Text style={styles.BtnText}>이레즈미</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.Btn} onPress={()=>{navigation.navigate("DetailPage",content)}}>
+        <TouchableOpacity style={styles.Btn} onPress={()=>{navigation.navigate("ImagePage",{idx:content})}}>
           <Image style={styles.BtnImg} source={{uri:"https://firebasestorage.googleapis.com/v0/b/tatoo-nine.appspot.com/o/images%2F98e6856cfec8ab4475fcd53992cc1c0a.jpg?alt=media&token=7a624e0a-6e3b-4990-91af-a85d7354be9c"}}/>
           <Text style={styles.BtnText}>치카노</Text>
         </TouchableOpacity>  
