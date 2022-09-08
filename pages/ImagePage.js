@@ -1,8 +1,12 @@
 import React ,{useState,useEffect} from "react";
 import { StyleSheet, Image,View, Text, ScrollView,TouchableOpacity } from 'react-native';
 import {useFonts} from "expo-font";
+
+
+
 export default function ImagePage({content,navigation}){
     
+       
         const [loaded] = useFonts({
             //Eng
             Alumni_Regular:require("../assets/font/AlumniSansPinstripe-Regular.ttf"),
@@ -16,6 +20,7 @@ export default function ImagePage({content,navigation}){
         if(!loaded){
             return null;
         }
+        
         return(
         
             <View>
