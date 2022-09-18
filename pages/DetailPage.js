@@ -7,6 +7,8 @@ export default function DetailPage({content,navigation,route}){
             let dater=snapshot.val();
         })
         
+        // let data = route.params;
+        // console.log(data);
     },[])
     
     
@@ -14,9 +16,7 @@ export default function DetailPage({content,navigation,route}){
         
         <View>
             
-            {/* <Text>장르:{content.catagory}</Text>
-            <Text style={styles.title}>작품명:{content.title}</Text>
-            <Text style={styles.desc} numberOfLines={2}>설명:{content.desc.length > 20 ? content.desc.slice(0,20)+'...' : content.desc}</Text> */}
+           <Text>{content.title}</Text>
         </View>
     )
 }

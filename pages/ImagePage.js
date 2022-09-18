@@ -21,6 +21,7 @@ export default function ImagePage({content,navigation}){
             return null;
         }
         
+        
         return(
         
             <View>

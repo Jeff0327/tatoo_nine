@@ -13,13 +13,14 @@ import {
   AdMobRewarded
 } from 'expo-ads-admob';
 
-export default function MainPage({navigation, content}) {
-    const [text, setText] = useState("");
+export default function MainPage({navigation, content, text}) {
+    // const [text, setText] = useState("");
     const [state, setState] = useState([]);
     const [onstate,onSetState] = useState([]);
-
+    
     const onChangeText =(payload)=>setText(payload);
     
+    console.log(text);
     
     useEffect(()=>{
       setTimeout(()=>{
@@ -27,7 +28,6 @@ export default function MainPage({navigation, content}) {
           let tip=snapshot.val();
           setState(tip);
           onSetState(tip);
-          
         })
         
       },1000)
@@ -36,7 +36,7 @@ export default function MainPage({navigation, content}) {
     },[])
     
   //   const onFilter=(cate)=>{
-  //     setFilter(filt.filter((d)=>{
+  //     return setFilt(filt.filter((d)=>{
   //         d.onFilter==cate
   //     }))
   // }
@@ -82,7 +82,9 @@ export default function MainPage({navigation, content}) {
       </TouchableOpacity>
       <ScrollView style={styles.mainImgContainer} horizontal = {true} pagingEnabled ={true}>
         {onstate.map((content, i)=>{
-          return(<ImagePage content={content} key={i} navigation={navigation}/>)
+          return(
+          <ImagePage content={content} key={i} navigation={navigation}/>
+          )
         })}
       </ScrollView>
       {/* <ScrollView style={styles.mainImgContainer} horizontal = {true} pagingEnabled ={true}>

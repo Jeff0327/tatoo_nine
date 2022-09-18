@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useState,useEffect} from 'react';
 import * as Linking from 'expo-linking';
 import { createStackNavigator } from '@react-navigation/stack';
 import { StyleSheet, Image,View, Text, ScrollView,Button,TouchableOpacity,TextInput } from 'react-native';
@@ -9,19 +9,25 @@ import ImagePage from '../pages/ImagePage';
 import { Fontisto } from "@expo/vector-icons";
 
 
+
 const Stack = createStackNavigator();
 
 const link =()=>{
     Linking.openURL('https://www.instagram.com/tattooist_nine/');
     
 }
-const searchData = async(text)=>{
-    // try{
-    //     const res = await fetch('https://tatoo-nine-default-rtdb.asia-southeast1.firebasedatabase.app/'),
-    // }
-}
+
 const StackNavigator = () =>{
+
+    const [text,setText] = useState("");
+    useEffect(()=>{
+        
+        
+    },[text])
+    
+    
     return (
+        
         <Stack.Navigator initialRouteName='MainPage'
             screenOptions={({navigation,search})=>({
                 headerStyle: {
@@ -48,7 +54,7 @@ const StackNavigator = () =>{
             )}})}/>
             <Stack.Screen name="ImagePage" component={ImagePage}/>
             <Stack.Screen name="SearchPage" component={SearchPage} options={()=>({ headerTitle:()=>{return (
-                <TextInput style={styles.Input} placeholder='타투검색' keyboardType="web-search" onChange={(text)=>searchData(text)}></TextInput>
+                <TextInput style={styles.Input} placeholder='타투검색' value={text} onChangeText={text=>setText(text)}></TextInput>
             )}, headerRight:()=>null})}/> 
         </Stack.Navigator>
         
