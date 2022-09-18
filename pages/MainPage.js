@@ -17,10 +17,9 @@ export default function MainPage({navigation, content, text}) {
     // const [text, setText] = useState("");
     const [state, setState] = useState([]);
     const [onstate,onSetState] = useState([]);
-    
+    const [plus, setPlus] = useState(false);
     const onChangeText =(payload)=>setText(payload);
     
-    console.log(text);
     
     useEffect(()=>{
       setTimeout(()=>{
@@ -40,7 +39,13 @@ export default function MainPage({navigation, content, text}) {
   //         d.onFilter==cate
   //     }))
   // }
-    
+    const onPlus=()=>{
+      if(!plus){
+        setPlus(true)
+      }else{
+        setPlus(false)
+      }
+    }
     
   return (
     
@@ -63,7 +68,8 @@ export default function MainPage({navigation, content, text}) {
         </TouchableOpacity>
         
       </View>
-      <View style={styles.BtnSecContainer}>
+      {
+        plus ? <View style={styles.BtnSecContainer}>
         <TouchableOpacity style={styles.Btn} onPress={()=>{navigation.navigate("DetailPage",content)}}>
           <Image style={styles.BtnImg} source={{uri:"https://firebasestorage.googleapis.com/v0/b/tatoo-nine.appspot.com/o/images%2F76af5f7957c8f59d7c0b1c06ab23344e.jpg?alt=media&token=482a1600-bc70-490f-b36a-9723809c1e15"}}/>
           <Text style={styles.BtnText}>라인워크</Text>
@@ -76,11 +82,14 @@ export default function MainPage({navigation, content, text}) {
           <Image style={styles.BtnImg} source={{uri:"https://firebasestorage.googleapis.com/v0/b/tatoo-nine.appspot.com/o/images%2F98e6856cfec8ab4475fcd53992cc1c0a.jpg?alt=media&token=7a624e0a-6e3b-4990-91af-a85d7354be9c"}}/>
           <Text style={styles.BtnText}>치카노</Text>
         </TouchableOpacity>  
-      </View>
-      <TouchableOpacity onPress={()=>{navigation.navigate("DetailPage",content)}}>
-        <Text style={styles.moreView}>+더 보기</Text>
+      </View> : null
+      }
+      <View>
+      <TouchableOpacity style={styles.moreTouch} onPress={onPlus}>
+        <Text style={styles.moreView}>+ 더보기</Text>
       </TouchableOpacity>
-      <ScrollView style={styles.mainImgContainer} horizontal = {true} pagingEnabled ={true}>
+      </View>
+      <ScrollView style={styles.mainImgContainer} horizontal = {false} pagingEnabled ={true}>
         {onstate.map((content, i)=>{
           return(
           <ImagePage content={content} key={i} navigation={navigation}/>
@@ -156,6 +165,10 @@ const styles = StyleSheet.create({
     flexDirection:"row",
     marginTop:"8%",
     marginBottom:"8%",
+  },
+  moreTouch:{
+    marginTop:5,
+    alignSelf:"flex-end",
   },
   moreView:{
     alignSelf:"flex-end",

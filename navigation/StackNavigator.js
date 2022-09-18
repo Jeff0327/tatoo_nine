@@ -20,11 +20,17 @@ const link =()=>{
 const StackNavigator = () =>{
 
     const [text,setText] = useState("");
+    
     useEffect(()=>{
         
-        
+    
     },[text])
     
+    
+    const onClear=()=>{
+        
+        setText("");
+    }
     
     return (
         
@@ -53,9 +59,11 @@ const StackNavigator = () =>{
             <Text style={styles.DetailTitle}>장르</Text>
             )}})}/>
             <Stack.Screen name="ImagePage" component={ImagePage}/>
-            <Stack.Screen name="SearchPage" component={SearchPage} options={()=>({ headerTitle:()=>{return (
+            <Stack.Screen name="SearchPage" component={SearchPage} options={()=>({ headerTitle:()=>{
+                return (
                 <TextInput style={styles.Input} placeholder='타투검색' value={text} onChangeText={text=>setText(text)}></TextInput>
-            )}, headerRight:()=>null})}/> 
+                )}, headerRight:()=>{return (<TouchableOpacity onPress={onClear}><Text>clear</Text></TouchableOpacity>)}})}
+            /> 
         </Stack.Navigator>
         
     )
