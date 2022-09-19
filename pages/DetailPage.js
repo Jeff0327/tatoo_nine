@@ -16,7 +16,7 @@ export default function DetailPage({content,navigation,route}){
         
         <View>
             
-           <Text>{content.title}</Text>
+           
         </View>
     )
 }
