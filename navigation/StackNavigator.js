@@ -7,6 +7,7 @@ import MainPage from '../pages/MainPage';
 import SearchPage from '../pages/SearchPage';
 import ImagePage from '../pages/ImagePage';
 import { Fontisto } from "@expo/vector-icons";
+import {useFonts} from "expo-font";
 
 
 
@@ -31,7 +32,16 @@ const StackNavigator = () =>{
         
         setText("");
     }
+    const [loaded] = useFonts({
+        //Eng
+        Alumni_Regular:require("../assets/font/AlumniSansPinstripe-Regular.ttf"),
+        Alumni_Italic:require("../assets/font/AlumniSansPinstripe-Italic.ttf"),
+        RobotoMono_Regular:require("../assets/font/RobotoMono-Regular.ttf"),
     
+    })
+    if(!loaded){
+        return null;
+    }
     return (
         
         <Stack.Navigator initialRouteName='MainPage'
@@ -44,6 +54,7 @@ const StackNavigator = () =>{
                 headerTitleAlign:"Left",
                 headerTintColor: "#000",
                 headerBackTitleVisible: false,
+                headerTitle:()=>{return (<View><TouchableOpacity onPress={()=>{navigation.navigate("MainPage")}}><Text style={styles.MainTitle}>TATOO NINE</Text></TouchableOpacity></View>)},
                 headerRight:()=>(
                     <View style={{flexDirection:"row", marginHorizontal:10}}>
                     <TouchableOpacity onPress={()=>{navigation.navigate("SearchPage",search)}}><Fontisto style={styles.fontImg}name='search'/></TouchableOpacity>
@@ -54,7 +65,7 @@ const StackNavigator = () =>{
             })}  
         >
 
-            <Stack.Screen name="TATOO NINE" component={MainPage}/>
+            <Stack.Screen name="MainPage" component={MainPage}/>
             <Stack.Screen name="DetailPage" component={DetailPage} options={()=>({headerTitle:()=>{return (
             <Text style={styles.DetailTitle}>장르</Text>
             )}})}/>
@@ -69,6 +80,12 @@ const StackNavigator = () =>{
     )
 }
 const styles=StyleSheet.create({
+    MainTitle:{
+        fontSize:20,
+        fontWeight:"500",
+        fontFamily:"RobotoMono_Regular",
+        
+    },
     fontImg:{
         fontSize:30,
         marginRight:5,
