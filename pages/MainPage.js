@@ -20,33 +20,42 @@ const DEFINE_LINEWALK="https://firebasestorage.googleapis.com/v0/b/tatoo-nine.ap
 const DEFINE_IREZUMI="https://firebasestorage.googleapis.com/v0/b/tatoo-nine.appspot.com/o/images%2F743420a602158d2b903973c9d5b36d6d.jpg?alt=media&token=f2cf53e9-09cf-4960-b30a-e6fcc78fde89"
 const DEFINE_CHIKANO="https://firebasestorage.googleapis.com/v0/b/tatoo-nine.appspot.com/o/images%2F98e6856cfec8ab4475fcd53992cc1c0a.jpg?alt=media&token=7a624e0a-6e3b-4990-91af-a85d7354be9c"
 
-export default function MainPage({navigation, content, text}) {
-    // const [text, setText] = useState("");
+export default function MainPage({navigation, content, route}) {
+    
     const [state, setState] = useState([]);
     const [onstate,onSetState] = useState([]);
+    
     const [plus, setPlus] = useState(false);
-    const onChangeText =(payload)=>setText(payload);
+    const [filt,setFilt] = useState("전체");
     
     
-
     useEffect(()=>{
+      
       setTimeout(()=>{
         firebase_db.ref('/images').once('value').then((snapshot)=>{
           let tip=snapshot.val();
+          
           setState(tip);
           onSetState(tip);
+          
         })
         
       },1000)
 
       
-    },[])
+    },[filt])
     
-  //   const onFilter=(cate)=>{
+    
+  //   const onFilt=(cate)=>{
+  //     if(filt){
+
+  //     }else{
   //     return setFilt(filt.filter((d)=>{
   //         d.onFilter==cate
   //     }))
+  //   }
   // }
+    
     const onPlus=()=>{
       if(!plus){
         setPlus(true)
@@ -55,8 +64,27 @@ export default function MainPage({navigation, content, text}) {
       }
     }
     
-    const onFilter=()=>{
-      console.log("it's filter");
+    
+    const btn1=()=>{
+      
+      let btn1filter=onstate.filter((d)=>{return d.catagory=="블랙워크"})
+      console.log(btn1filter)
+      setFilt("버튼1");
+    }
+    const btn2=()=>{
+      setFilt("버튼2");
+    }
+    const btn3=()=>{
+      setFilt("버튼3");
+    }
+    const btn4=()=>{
+      setFilt("버튼4");
+    }
+    const btn5=()=>{
+      setFilt("버튼5");
+    }
+    const btn6=()=>{
+      setFilt("버튼6");
     }
   return (
     
@@ -66,37 +94,37 @@ export default function MainPage({navigation, content, text}) {
         
       <View style={styles.BtnContainer}>
         <View>
-        <TouchableOpacity style={styles.Btn} onPress={onFilter}>
+        <TouchableOpacity style={styles.Btn} onPress={btn1}>
           <Image style={styles.BtnImg} source={{uri:DEFINE_BLACKWALK}}/>
           <Text style={styles.BtnText}>블랙워크</Text>
         </TouchableOpacity>
         </View>
         <View>
-        <TouchableOpacity style={styles.Btn} onPress={onFilter}>
+        <TouchableOpacity style={styles.Btn} onPress={btn2}>
           <Image style={styles.BtnImg} source={{uri:DEFINE_BLACKANDGRAY}}/>
           <Text style={styles.BtnText}>블랙앤그레이</Text>
         </TouchableOpacity>
         </View>
         <View>
-        <TouchableOpacity style={styles.Btn} onPress={onFilter}>
+        <TouchableOpacity style={styles.Btn} onPress={btn3}>
           <Image style={styles.BtnImg} source={{uri:DEFINE_OLDSCOOL}}/>
           <Text style={styles.BtnText}>올드스쿨</Text>
         </TouchableOpacity>
         </View>
         <View>
-        <TouchableOpacity style={styles.Btn} onPress={onFilter}>
+        <TouchableOpacity style={styles.Btn} onPress={btn4}>
           <Image style={styles.BtnImg} source={{uri:DEFINE_LINEWALK}}/>
           <Text style={styles.BtnText}>라인워크</Text>
         </TouchableOpacity>
         </View>
         <View>
-        <TouchableOpacity style={styles.Btn} onPress={onFilter}>
+        <TouchableOpacity style={styles.Btn} onPress={btn5}>
           <Image style={styles.BtnImg} source={{uri:DEFINE_IREZUMI}}/>
           <Text style={styles.BtnText}>이레즈미</Text>
         </TouchableOpacity>
         </View>
         <View>
-        <TouchableOpacity style={styles.Btn} onPress={onFilter}>
+        <TouchableOpacity style={styles.Btn} onPress={btn6}>
           <Image style={styles.BtnImg} source={{uri:DEFINE_CHIKANO}}/>
           <Text style={styles.BtnText}>치카노</Text>
         </TouchableOpacity>
@@ -132,13 +160,23 @@ export default function MainPage({navigation, content, text}) {
       </TouchableOpacity>
       </View>
       
+      
+      {filt=="전체" ? 
       <ScrollView style={styles.mainImgContainer} horizontal = {false} pagingEnabled ={true}>
         {onstate.map((content, i)=>{
           return(
           <ImagePage content={content} key={i} navigation={navigation}/>
           )
         })}
-      </ScrollView>
+      </ScrollView> : 
+      filt=="버튼1" ? <View><Text>버튼2</Text></View> : 
+      filt=="버튼2" ? <View><Text>버튼2</Text></View> :
+      filt=="버튼3" ? <View><Text>버튼3</Text></View> :
+      filt=="버튼4" ? <View><Text>버튼4</Text></View> :
+      filt=="버튼5" ? <View><Text>버튼5</Text></View> :
+      filt=="버튼6" ? <View><Text>버튼6</Text></View> :
+      null
+      }
       
       <StatusBar style="auto" />
       </ScrollView>
@@ -172,6 +210,7 @@ const styles = StyleSheet.create({
     backgroundColor:"gray",
   },
   HideView:{
+    paddingTop:3,
     flexWrap:"wrap",
     flexDirection:"row",
   },
