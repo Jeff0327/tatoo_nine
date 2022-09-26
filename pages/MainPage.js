@@ -22,12 +22,13 @@ const DEFINE_CHIKANO="https://firebasestorage.googleapis.com/v0/b/tatoo-nine.app
 
 export default function MainPage({navigation, content, route}) {
     
+    
     const [state, setState] = useState([]);
     const [onstate,onSetState] = useState([]);
     
     const [plus, setPlus] = useState(false);
     const [filt,setFilt] = useState("전체");
-    
+    const [result,setResult]=useState([]);
     
     useEffect(()=>{
       
@@ -67,23 +68,39 @@ export default function MainPage({navigation, content, route}) {
     
     const btn1=()=>{
       
-      let btn1filter=onstate.filter((d)=>{return d.catagory=="블랙워크"})
-      console.log(btn1filter)
+      setResult(onstate.filter((d)=>{return d.catagory=="블랙워크"}))
       setFilt("버튼1");
     }
     const btn2=()=>{
+      setResult(onstate.filter((d)=>{return d.catagory=="블랙앤그레이"}))
       setFilt("버튼2");
     }
     const btn3=()=>{
+      setResult(onstate.filter((d)=>{return d.catagory=="올드스쿨"}))
       setFilt("버튼3");
     }
     const btn4=()=>{
+      setResult(onstate.filter((d)=>{return d.catagory=="라인워크"}))
       setFilt("버튼4");
     }
     const btn5=()=>{
+      setResult(onstate.filter((d)=>{return d.catagory=="이레즈미"}))
       setFilt("버튼5");
     }
     const btn6=()=>{
+      setResult(onstate.filter((d)=>{return d.catagory=="치카노"}))
+      setFilt("버튼6");
+    }
+    const btn7=()=>{
+      setResult(onstate.filter((d)=>{return d.catagory=="기타1"}))
+      setFilt("버튼6");
+    }
+    const btn8=()=>{
+      setResult(onstate.filter((d)=>{return d.catagory=="기타2"}))
+      setFilt("버튼6");
+    }
+    const btn9=()=>{
+      setResult(onstate.filter((d)=>{return d.catagory=="기타3"}))
       setFilt("버튼6");
     }
   return (
@@ -133,19 +150,19 @@ export default function MainPage({navigation, content, route}) {
         {plus ? 
         <View style={styles.HideView}>
           <View>
-            <TouchableOpacity style={styles.Btn} onPress={onFilter}>
+            <TouchableOpacity style={styles.Btn} onPress={btn7}>
               <Image style={styles.BtnImg} source={{uri:DEFINE_LINEWALK}}/>
               <Text style={styles.BtnText}>기타1</Text>
             </TouchableOpacity>
             </View>
             <View>
-            <TouchableOpacity style={styles.Btn} onPress={onFilter}>
+            <TouchableOpacity style={styles.Btn} onPress={btn8}>
               <Image style={styles.BtnImg} source={{uri:DEFINE_IREZUMI}}/>
               <Text style={styles.BtnText}>기타2</Text>
             </TouchableOpacity>
             </View>
             <View>
-            <TouchableOpacity style={styles.Btn} onPress={onFilter}>
+            <TouchableOpacity style={styles.Btn} onPress={btn9}>
               <Image style={styles.BtnImg} source={{uri:DEFINE_CHIKANO}}/>
               <Text style={styles.BtnText}>기타3</Text>
             </TouchableOpacity>
@@ -169,12 +186,69 @@ export default function MainPage({navigation, content, route}) {
           )
         })}
       </ScrollView> : 
-      filt=="버튼1" ? <View><Text>버튼2</Text></View> : 
-      filt=="버튼2" ? <View><Text>버튼2</Text></View> :
-      filt=="버튼3" ? <View><Text>버튼3</Text></View> :
-      filt=="버튼4" ? <View><Text>버튼4</Text></View> :
-      filt=="버튼5" ? <View><Text>버튼5</Text></View> :
-      filt=="버튼6" ? <View><Text>버튼6</Text></View> :
+      filt=="버튼1" ? <ScrollView style={styles.mainImgContainer} horizontal = {false} pagingEnabled ={true}>
+      {result.map((content, i)=>{
+        return(
+        <ImagePage content={content} key={i} navigation={navigation}/>
+        )
+      })}
+    </ScrollView> : 
+      filt=="버튼2" ? <ScrollView style={styles.mainImgContainer} horizontal = {false} pagingEnabled ={true}>
+      {result.map((content, i)=>{
+        return(
+        <ImagePage content={content} key={i} navigation={navigation}/>
+        )
+      })}
+    </ScrollView> : 
+      filt=="버튼3" ? <ScrollView style={styles.mainImgContainer} horizontal = {false} pagingEnabled ={true}>
+      {result.map((content, i)=>{
+        return(
+        <ImagePage content={content} key={i} navigation={navigation}/>
+        )
+      })}
+    </ScrollView> :
+      filt=="버튼4" ? <ScrollView style={styles.mainImgContainer} horizontal = {false} pagingEnabled ={true}>
+      {result.map((content, i)=>{
+        return(
+        <ImagePage content={content} key={i} navigation={navigation}/>
+        )
+      })}
+    </ScrollView> :
+      filt=="버튼5" ? <ScrollView style={styles.mainImgContainer} horizontal = {false} pagingEnabled ={true}>
+      {result.map((content, i)=>{
+        return(
+        <ImagePage content={content} key={i} navigation={navigation}/>
+        )
+      })}
+    </ScrollView> :
+      filt=="버튼6" ? <ScrollView style={styles.mainImgContainer} horizontal = {false} pagingEnabled ={true}>
+      {result.map((content, i)=>{
+        return(
+        <ImagePage content={content} key={i} navigation={navigation}/>
+        )
+      })}
+    </ScrollView> :
+    filt=="기타1" ? <ScrollView style={styles.mainImgContainer} horizontal = {false} pagingEnabled ={true}>
+    {result.map((content, i)=>{
+      return(
+      <ImagePage content={content} key={i} navigation={navigation}/>
+      )
+    })}
+  </ScrollView> :
+  filt=="기타2" ? <ScrollView style={styles.mainImgContainer} horizontal = {false} pagingEnabled ={true}>
+  {result.map((content, i)=>{
+    return(
+    <ImagePage content={content} key={i} navigation={navigation}/>
+    )
+  })}
+</ScrollView> :
+filt=="기타3" ? <ScrollView style={styles.mainImgContainer} horizontal = {false} pagingEnabled ={true}>
+{result.map((content, i)=>{
+  return(
+  <ImagePage content={content} key={i} navigation={navigation}/>
+  )
+})}
+</ScrollView> :
       null
       }
       
