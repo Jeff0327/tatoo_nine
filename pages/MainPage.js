@@ -20,7 +20,7 @@ const DEFINE_LINEWALK="https://firebasestorage.googleapis.com/v0/b/tatoo-nine.ap
 const DEFINE_IREZUMI="https://firebasestorage.googleapis.com/v0/b/tatoo-nine.appspot.com/o/images%2F743420a602158d2b903973c9d5b36d6d.jpg?alt=media&token=f2cf53e9-09cf-4960-b30a-e6fcc78fde89"
 const DEFINE_CHIKANO="https://firebasestorage.googleapis.com/v0/b/tatoo-nine.appspot.com/o/images%2F98e6856cfec8ab4475fcd53992cc1c0a.jpg?alt=media&token=7a624e0a-6e3b-4990-91af-a85d7354be9c"
 
-export default function MainPage({navigation, content, route}) {
+export default function MainPage({navigation, route}) {
     
     
     const [state, setState] = useState([]);
@@ -28,8 +28,18 @@ export default function MainPage({navigation, content, route}) {
     
     const [plus, setPlus] = useState(false);
     const [filt,setFilt] = useState("전체");
-    const [result,setResult]=useState([]);
+    const [result,setResult]=useState([]); 
     
+    let titleClick;
+    
+    
+    // if(titleClick.dater==true){
+    //   setFilt("전체");
+    //   titleClick.dater=false;
+    // }else{
+    //   titleClick=route.params;
+    // }
+    // console.log(titleClick.dater)
     useEffect(()=>{
       
       setTimeout(()=>{
@@ -38,6 +48,8 @@ export default function MainPage({navigation, content, route}) {
           
           setState(tip);
           onSetState(tip);
+          
+          
           
         })
         
@@ -65,6 +77,8 @@ export default function MainPage({navigation, content, route}) {
       }
     }
     
+    
+     
     
     const btn1=()=>{
       

@@ -54,7 +54,7 @@ const StackNavigator = () =>{
                 headerTitleAlign:"Left",
                 headerTintColor: "#000",
                 headerBackTitleVisible: false,
-                headerTitle:()=>{return (<View><TouchableOpacity onPress={()=>{navigation.navigate("MainPage")}}><Text style={styles.MainTitle}>TATOO NINE</Text></TouchableOpacity></View>)},
+                headerTitle:()=>{const dater= true; return (<View><TouchableOpacity onPress={()=>{navigation.navigate("MainPage",{dater})}}><Text style={styles.MainTitle}>TATOO NINE</Text></TouchableOpacity></View>)},
                 headerRight:()=>(
                     <View style={{flexDirection:"row", marginHorizontal:10}}>
                     <TouchableOpacity onPress={()=>{navigation.navigate("SearchPage",search)}}><Fontisto style={styles.fontImg}name='search'/></TouchableOpacity>
