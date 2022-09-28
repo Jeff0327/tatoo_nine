@@ -20,7 +20,7 @@ const link =()=>{
 
 const StackNavigator = () =>{
 
-    const [text,setText] = useState("");
+    const [text,setText] = useState("asd");
     
     useEffect(()=>{
         
@@ -45,7 +45,7 @@ const StackNavigator = () =>{
     return (
         
         <Stack.Navigator initialRouteName='MainPage'
-            screenOptions={({navigation,search})=>({
+            screenOptions={({navigation})=>({
                 headerStyle: {
                     backgroundColor: "white",
                     borderBottomColor: "white",
@@ -57,7 +57,7 @@ const StackNavigator = () =>{
                 headerTitle:()=>{const dater= true; return (<View><TouchableOpacity onPress={()=>{navigation.navigate("MainPage",{dater})}}><Text style={styles.MainTitle}>TATOO NINE</Text></TouchableOpacity></View>)},
                 headerRight:()=>(
                     <View style={{flexDirection:"row", marginHorizontal:10}}>
-                    <TouchableOpacity onPress={()=>{navigation.navigate("SearchPage",search)}}><Fontisto style={styles.fontImg}name='search'/></TouchableOpacity>
+                    <TouchableOpacity onPress={()=>{navigation.navigate("SearchPage")}}><Fontisto style={styles.fontImg}name='search'/></TouchableOpacity>
                     <TouchableOpacity onPress={link}><Fontisto style={styles.fontImg} name='instagram'/></TouchableOpacity>
                     </View>
                     )
@@ -66,14 +66,14 @@ const StackNavigator = () =>{
         >
 
             <Stack.Screen name="MainPage" component={MainPage}/>
-            <Stack.Screen name="DetailPage" component={DetailPage} options={()=>({headerTitle:()=>{return (
-            <Text style={styles.DetailTitle}>장르</Text>
-            )}})}/>
             <Stack.Screen name="ImagePage" component={ImagePage}/>
-            <Stack.Screen name="SearchPage" component={SearchPage} options={()=>({ headerTitle:()=>{
+            <Stack.Screen name="SearchPage" component={SearchPage} options={()=>({ 
+                headerTitle:()=>{
+
                 return (
-                <TextInput style={styles.Input} placeholder='타투검색' value={text} onChangeText={text=>setText(text)}></TextInput>
-                )}, headerRight:()=>{return (<TouchableOpacity onPress={onClear}><Text>clear</Text></TouchableOpacity>)}})}
+                <TextInput style={styles.Input} placeholder='타투검색' value={text} onChangeText={(text)=>setText(text)}></TextInput>
+                )}, 
+                headerRight:()=>{return (<TouchableOpacity onPress={onClear}><Text>clear</Text></TouchableOpacity>)}})}
             /> 
         </Stack.Navigator>
         

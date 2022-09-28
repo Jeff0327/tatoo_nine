@@ -187,7 +187,7 @@ export default function MainPage({navigation, route}) {
 
       <View style={styles.moreContainer}>
       <TouchableOpacity style={styles.moreTouch} onPress={onPlus}>
-        <Text style={styles.moreView}>+ 더보기</Text>
+        <Text style={styles.moreView}>+ 장르더보기</Text>
       </TouchableOpacity>
       </View>
       
