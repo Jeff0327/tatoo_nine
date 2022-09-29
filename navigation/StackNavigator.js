@@ -29,6 +29,7 @@ const StackNavigator = (name) =>{
     },[text])
     
     
+    
     const onClear=()=>{
         
         setText("");
@@ -68,19 +69,21 @@ const StackNavigator = (name) =>{
 
             <Stack.Screen name="MainPage" component={MainPage}/>
             <Stack.Screen name="ImagePage" component={ImagePage}/>
-            <Stack.Screen name="SearchPage" component={SearchPage} options={({navigation})=>({ 
+            <Stack.Screen name="SearchPage" component={SearchPage} options={()=>({ 
                 headerTitle:()=>{
-                    const saveText =async(text)=>{
-                        try{
-                            await AsyncStorage.setItem("savedata",text)
-                            console.log("saved");
-                        }catch(e){
+                    // const saveText =async(text)=>{
+                    //     try{
+                    //         await AsyncStorage.setItem("savedata",text)
+                    //         console.log("saved");
+                    //     }catch(e){
 
-                        }
+                    //     }
+                    // }
+                    const handledata=(e)=>{
+                        console.log(e);
                     }
-                    console.log(saveText(text));
                 return (
-                <TextInput style={styles.Input} placeholder='타투검색' value={text} onChangeText={(text)=>{setText(text)}}></TextInput>
+                <TextInput style={styles.Input} placeholder='타투검색' value={text} onChangeText={(text)=>{setText(text)}}><SearchPage onSave={this.handledata}/></TextInput>
                 )},
                 headerRight:()=>{
                     return (

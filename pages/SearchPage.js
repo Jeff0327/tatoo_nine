@@ -13,20 +13,20 @@ export default function SearchPage({navigation,route,setText}){
     const [get,setGet] =useState("")
     const [go, setGo] = useState(false);
 
-    let dater=route.params;
+    // let dater=route.params;
     
     
-    const getText=async()=>{
-        try{
-            const value =await AsyncStorage.getItem("savedata")
-            console.log(value);
-            if(value!=null){
-                setGet(value);
-            }
-        }catch(e){
+    // const getText=async()=>{
+    //     try{
+    //         const value =await AsyncStorage.getItem("savedata")
+    //         console.log(value);
+    //         if(value!=null){
+    //             setGet(value);
+    //         }
+    //     }catch(e){
 
-        }
-    }
+    //     }
+    // }
 
     
     useEffect(()=>{
