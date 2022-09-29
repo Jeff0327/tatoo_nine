@@ -2,13 +2,12 @@ import React,{useState,useEffect} from 'react';
 import * as Linking from 'expo-linking';
 import { createStackNavigator } from '@react-navigation/stack';
 import { StyleSheet, Image,View, Text, ScrollView,Button,TouchableOpacity,TextInput } from 'react-native';
-import DetailPage from '../pages/DetailPage';
 import MainPage from '../pages/MainPage';
 import SearchPage from '../pages/SearchPage';
 import ImagePage from '../pages/ImagePage';
 import { Fontisto } from "@expo/vector-icons";
 import {useFonts} from "expo-font";
-import AsyncStorage from '@react-native-async-storage/async-storage';
+// import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 
@@ -19,7 +18,7 @@ const link =()=>{
     
 }
 
-const StackNavigator = (name) =>{
+const StackNavigator = () =>{
 
     const [text,setText] = useState("");
     
@@ -79,11 +78,9 @@ const StackNavigator = (name) =>{
 
                     //     }
                     // }
-                    const handledata=(e)=>{
-                        console.log(e);
-                    }
+                    
                 return (
-                <TextInput style={styles.Input} placeholder='타투검색' value={text} onChangeText={(text)=>{setText(text)}}><SearchPage onSave={this.handledata}/></TextInput>
+                <TextInput style={styles.Input} placeholder='타투검색' value={text} onChangeText={(text)=>{setText(text)}}></TextInput>
                 )},
                 headerRight:()=>{
                     return (
