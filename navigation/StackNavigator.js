@@ -8,6 +8,7 @@ import SearchPage from '../pages/SearchPage';
 import ImagePage from '../pages/ImagePage';
 import { Fontisto } from "@expo/vector-icons";
 import {useFonts} from "expo-font";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 
@@ -18,9 +19,9 @@ const link =()=>{
     
 }
 
-const StackNavigator = () =>{
+const StackNavigator = (name) =>{
 
-    const [text,setText] = useState("asd");
+    const [text,setText] = useState("");
     
     useEffect(()=>{
         
@@ -67,14 +68,25 @@ const StackNavigator = () =>{
 
             <Stack.Screen name="MainPage" component={MainPage}/>
             <Stack.Screen name="ImagePage" component={ImagePage}/>
-            <Stack.Screen name="SearchPage" component={SearchPage} options={()=>({ 
+            <Stack.Screen name="SearchPage" component={SearchPage} options={({navigation})=>({ 
                 headerTitle:()=>{
+                    const saveText =async(text)=>{
+                        try{
+                            await AsyncStorage.setItem("savedata",text)
+                            console.log("saved");
+                        }catch(e){
 
+                        }
+                    }
+                    console.log(saveText(text));
                 return (
-                <TextInput style={styles.Input} placeholder='타투검색' value={text} onChangeText={(text)=>setText(text)}></TextInput>
-                )}, 
-                headerRight:()=>{return (<TouchableOpacity onPress={onClear}><Text>clear</Text></TouchableOpacity>)}})}
-            /> 
+                <TextInput style={styles.Input} placeholder='타투검색' value={text} onChangeText={(text)=>{setText(text)}}></TextInput>
+                )},
+                headerRight:()=>{
+                    return (
+                    <TouchableOpacity onPress={onClear}><Text>clear</Text></TouchableOpacity>
+                    )}})}
+            />
         </Stack.Navigator>
         
     )
