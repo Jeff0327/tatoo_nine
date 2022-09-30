@@ -8,7 +8,7 @@ import ImagePage from '../pages/ImagePage';
 import { Fontisto } from "@expo/vector-icons";
 import {useFonts} from "expo-font";
 import {firebase_db} from "../firebaseConfig";
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 
@@ -33,15 +33,28 @@ const StackNavigator = () =>{
                 
             })
           },1000)
-
+          
     },[text])
+    let check=text.split("");
     
-        let dater=onstate.filter((e)=>{return e.idx==text})
-    
+        let dater=onstate.filter((e)=>{return e.catagory==check})
+        console.log(dater)
+
+        
+        const saveData=async()=>{
+            try{
+                
+            await AsyncStorage.setItem('textKey',text)
+            
+            
+            }catch(e){
+
+            }
+        }
 
     const onChangeText=(text)=>{
         setText(text);
-        return dater
+        
     }
     const onClear=()=>{ //텍스트 clear function
         
@@ -71,12 +84,11 @@ const StackNavigator = () =>{
                 headerTitleAlign:"Left",
                 headerTintColor: "#000",
                 headerBackTitleVisible: false,
-                headerTitle:()=>{
-                    const dater= true; 
+                headerTitle:()=>{ 
                     return (
                     <View>
                         <TouchableOpacity 
-                        onPress={()=>{navigation.navigate("MainPage",{dater})}}
+                        onPress={()=>{navigation.navigate("MainPage",{text})}}
                         >
                             <Text style={styles.MainTitle}>TATOO NINE</Text>
                         </TouchableOpacity>

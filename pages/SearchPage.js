@@ -3,7 +3,6 @@ import React ,{useState,useEffect} from "react";
 import { StyleSheet, Image,View, Text, ScrollView,TouchableOpacity,TextInput } from 'react-native';
 import {firebase_db} from "../firebaseConfig";
 import ImagePage from "./ImagePage";
-
 export default function SearchPage({navigation}){
     
     const [onstate,onSetState] = useState([]);
@@ -12,8 +11,24 @@ export default function SearchPage({navigation}){
     const [result,setResult]=useState([]);
     
     
+
+    const loadData =async()=>{
+      try{
+        const value = await AsyncStorage.getItem('textKey')
+        .then(response=>response.json())
+        .then(data=>{console.log(data);
+        })
+        
+        console.log(value);  
+        
+      }catch(e){
+
+      }
+    }
     
+      
     useEffect(()=>{
+      loadData();
       
         setTimeout(()=>{
           firebase_db.ref('/images').once('value').then((snapshot)=>{
