@@ -4,7 +4,6 @@ import React, {useState, useEffect} from "react";
 import {firebase_db} from "../firebaseConfig";
 import ImagePage from "../pages/ImagePage";
 
-
 import {
   setTestDeviceIDAsync,
   AdMobBanner,
@@ -30,16 +29,6 @@ export default function MainPage({navigation, route}) {
     const [filt,setFilt] = useState("전체");
     const [result,setResult]=useState([]); 
     
-    let titleClick;
-    
-    
-    // if(titleClick.dater==true){
-    //   setFilt("전체");
-    //   titleClick.dater=false;
-    // }else{
-    //   titleClick=route.params;
-    // }
-    // console.log(titleClick.dater)
     useEffect(()=>{
       
       setTimeout(()=>{
@@ -49,8 +38,6 @@ export default function MainPage({navigation, route}) {
           setState(tip);
           onSetState(tip);
           
-          
-          
         })
         
       },1000)
@@ -58,27 +45,13 @@ export default function MainPage({navigation, route}) {
       
     },[filt])
     
-    
-  //   const onFilt=(cate)=>{
-  //     if(filt){
-
-  //     }else{
-  //     return setFilt(filt.filter((d)=>{
-  //         d.onFilter==cate
-  //     }))
-  //   }
-  // }
-    
-    const onPlus=()=>{
+    const onPlus=()=>{  //더보기 toggle fn
       if(!plus){
         setPlus(true)
       }else{
         setPlus(false)
       }
     }
-    
-    
-     
     
     const btn1=()=>{
       
@@ -248,25 +221,26 @@ export default function MainPage({navigation, route}) {
       <ImagePage content={content} key={i} navigation={navigation}/>
       )
     })}
+    </ScrollView> :
+    filt=="기타2" ? <ScrollView style={styles.mainImgContainer} horizontal = {false} pagingEnabled ={true}>
+    {result.map((content, i)=>{
+      return(
+      <ImagePage content={content} key={i} navigation={navigation}/>
+      )
+    })}
   </ScrollView> :
-  filt=="기타2" ? <ScrollView style={styles.mainImgContainer} horizontal = {false} pagingEnabled ={true}>
+  filt=="기타3" ? <ScrollView style={styles.mainImgContainer} horizontal = {false} pagingEnabled ={true}>
   {result.map((content, i)=>{
     return(
     <ImagePage content={content} key={i} navigation={navigation}/>
     )
   })}
-</ScrollView> :
-filt=="기타3" ? <ScrollView style={styles.mainImgContainer} horizontal = {false} pagingEnabled ={true}>
-{result.map((content, i)=>{
-  return(
-  <ImagePage content={content} key={i} navigation={navigation}/>
-  )
-})}
-</ScrollView> :
+  </ScrollView> :
       null
       }
       
       <StatusBar style="auto" />
+      
       </ScrollView>
         <View style={styles.bannerContainer}>
       {Platform.OS === 'ios' ? (

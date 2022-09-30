@@ -7,8 +7,6 @@ export default function DetailPage({content,navigation,route}){
             let dater=snapshot.val();
         })
         
-        // let data = route.params;
-        // console.log(data);
     },[])
     
     

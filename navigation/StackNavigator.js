@@ -1,40 +1,54 @@
 import React,{useState,useEffect} from 'react';
 import * as Linking from 'expo-linking';
 import { createStackNavigator } from '@react-navigation/stack';
-import { StyleSheet, Image,View, Text, ScrollView,Button,TouchableOpacity,TextInput } from 'react-native';
+import { StyleSheet, Image,View, Text, ScrollView,TouchableOpacity,TextInput } from 'react-native';
 import MainPage from '../pages/MainPage';
 import SearchPage from '../pages/SearchPage';
 import ImagePage from '../pages/ImagePage';
 import { Fontisto } from "@expo/vector-icons";
 import {useFonts} from "expo-font";
-// import AsyncStorage from '@react-native-async-storage/async-storage';
+import {firebase_db} from "../firebaseConfig";
+
+
 
 
 
 const Stack = createStackNavigator();
 
 const link =()=>{
-    Linking.openURL('https://www.instagram.com/tattooist_nine/');
+    Linking.openURL('https://www.instagram.com/tattooist_nine/'); //인스타링크
     
 }
 
 const StackNavigator = () =>{
 
-    const [text,setText] = useState("");
+    const [text,setText]=useState("");
     
+    const [onstate,onSetState] = useState([]);
     useEffect(()=>{
-        
-    
+        setTimeout(()=>{
+            firebase_db.ref('/images').once('value').then((snapshot)=>{
+              let tip=snapshot.val();
+              onSetState(tip);
+                
+            })
+          },1000)
+
     },[text])
     
+        let dater=onstate.filter((e)=>{return e.idx==text})
     
-    
-    const onClear=()=>{
+
+    const onChangeText=(text)=>{
+        setText(text);
+        return dater
+    }
+    const onClear=()=>{ //텍스트 clear function
         
         setText("");
     }
     const [loaded] = useFonts({
-        //Eng
+        //Only Eng support font
         Alumni_Regular:require("../assets/font/AlumniSansPinstripe-Regular.ttf"),
         Alumni_Italic:require("../assets/font/AlumniSansPinstripe-Italic.ttf"),
         RobotoMono_Regular:require("../assets/font/RobotoMono-Regular.ttf"),
@@ -43,9 +57,11 @@ const StackNavigator = () =>{
     if(!loaded){
         return null;
     }
+
     return (
         
         <Stack.Navigator initialRouteName='MainPage'
+            
             screenOptions={({navigation})=>({
                 headerStyle: {
                     backgroundColor: "white",
@@ -55,42 +71,62 @@ const StackNavigator = () =>{
                 headerTitleAlign:"Left",
                 headerTintColor: "#000",
                 headerBackTitleVisible: false,
-                headerTitle:()=>{const dater= true; return (<View><TouchableOpacity onPress={()=>{navigation.navigate("MainPage",{dater})}}><Text style={styles.MainTitle}>TATOO NINE</Text></TouchableOpacity></View>)},
+                headerTitle:()=>{
+                    const dater= true; 
+                    return (
+                    <View>
+                        <TouchableOpacity 
+                        onPress={()=>{navigation.navigate("MainPage",{dater})}}
+                        >
+                            <Text style={styles.MainTitle}>TATOO NINE</Text>
+                        </TouchableOpacity>
+                    </View>)
+                },
                 headerRight:()=>(
                     <View style={{flexDirection:"row", marginHorizontal:10}}>
-                    <TouchableOpacity onPress={()=>{navigation.navigate("SearchPage")}}><Fontisto style={styles.fontImg}name='search'/></TouchableOpacity>
-                    <TouchableOpacity onPress={link}><Fontisto style={styles.fontImg} name='instagram'/></TouchableOpacity>
+                        <TouchableOpacity onPress={()=>{navigation.navigate("SearchPage")}}>
+                            <Fontisto style={styles.fontImg} name='search'/>
+                        </TouchableOpacity>
+                        <TouchableOpacity onPress={link}>
+                            <Fontisto style={styles.fontImg} name='instagram'/>
+                        </TouchableOpacity>
                     </View>
                     )
                 ,
             })}  
         >
-
+            
             <Stack.Screen name="MainPage" component={MainPage}/>
             <Stack.Screen name="ImagePage" component={ImagePage}/>
             <Stack.Screen name="SearchPage" component={SearchPage} options={()=>({ 
-                headerTitle:()=>{
-                    // const saveText =async(text)=>{
-                    //     try{
-                    //         await AsyncStorage.setItem("savedata",text)
-                    //         console.log("saved");
-                    //     }catch(e){
+                    headerTitle:()=>{
 
-                    //     }
-                    // }
-                    
-                return (
-                <TextInput style={styles.Input} placeholder='타투검색' value={text} onChangeText={(text)=>{setText(text)}}></TextInput>
-                )},
-                headerRight:()=>{
                     return (
-                    <TouchableOpacity onPress={onClear}><Text>clear</Text></TouchableOpacity>
-                    )}})}
-            />
-        </Stack.Navigator>
-        
+                    <TextInput 
+                    style={styles.Input} 
+                    placeholder='타투검색' 
+                    value={text} 
+                    onChangeText={onChangeText}>
+                    </TextInput>
+                        )
+                    },
+                    
+                    headerRight:()=>{
+                    return (
+                    <TouchableOpacity 
+                    onPress={onClear}>
+                        <Text>clear</Text>
+                    </TouchableOpacity>
+                        )
+                    },
+                })
+                }
+                />
+                
+            </Stack.Navigator>
     )
 }
+
 const styles=StyleSheet.create({
     MainTitle:{
         fontSize:20,
