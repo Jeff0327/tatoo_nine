@@ -35,10 +35,11 @@ const StackNavigator = () =>{
           },1000)
           
     },[text])
+    
     let check=text.split("");
     
         let dater=onstate.filter((e)=>{return e.catagory==check})
-        console.log(dater)
+        
 
         
         const saveData=async()=>{
@@ -51,7 +52,11 @@ const StackNavigator = () =>{
 
             }
         }
-
+        
+        // const test=onstate.filter((e)=>{return e.catagory=="블랙워크"})
+        
+        
+        
     const onChangeText=(text)=>{
         setText(text);
         
@@ -87,46 +92,62 @@ const StackNavigator = () =>{
                 headerTitle:()=>{ 
                     return (
                     <View>
-                        <TouchableOpacity 
-                        onPress={()=>{navigation.navigate("MainPage",{text})}}
-                        >
-                            <Text style={styles.MainTitle}>TATOO NINE</Text>
-                        </TouchableOpacity>
-                    </View>)
-                },
-                headerRight:()=>(
-                    <View style={{flexDirection:"row", marginHorizontal:10}}>
-                        <TouchableOpacity onPress={()=>{navigation.navigate("SearchPage")}}>
-                            <Fontisto style={styles.fontImg} name='search'/>
-                        </TouchableOpacity>
-                        <TouchableOpacity onPress={link}>
-                            <Fontisto style={styles.fontImg} name='instagram'/>
-                        </TouchableOpacity>
+                        
+                        <View>
+                            <TouchableOpacity 
+                            onPress={()=>{navigation.navigate("MainPage",{text})}}
+                            >
+                                <Text style={styles.MainTitle}>TATOO NINE</Text>
+                            </TouchableOpacity>
+                        </View>
+                        
                     </View>
                     )
+                },
+                headerRight:()=>{
+                    
+                    
+
+                    return(
+                <View style={{flexDirection:"row", marginHorizontal:10}}>
+                <TouchableOpacity onPress={()=>{navigation.navigate("SearchPage")}}>
+                    <Fontisto style={styles.fontImg} name='search'/>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={link}>
+                    <Fontisto style={styles.fontImg} name='instagram'/>
+                </TouchableOpacity>
+                
+            </View>
+        )    
+        }
+                    
+                    
+                    
                 ,
             })}  
         >
             
             <Stack.Screen name="MainPage" component={MainPage}/>
             <Stack.Screen name="ImagePage" component={ImagePage}/>
-            <Stack.Screen name="SearchPage" component={SearchPage} options={()=>({ 
+            <Stack.Screen name="SearchPage" component={SearchPage} options={({navigation})=>({ 
                     headerTitle:()=>{
-
+                        
                     return (
+                            
                     <TextInput 
                     style={styles.Input} 
                     placeholder='타투검색' 
                     value={text} 
                     onChangeText={onChangeText}>
                     </TextInput>
+                    
                         )
                     },
                     
                     headerRight:()=>{
                     return (
                     <TouchableOpacity 
-                    onPress={onClear}>
+                    onPress={()=>{navigation.navigate("SearchPage",text)}}>
                         <Text>clear</Text>
                     </TouchableOpacity>
                         )
