@@ -13,11 +13,6 @@ export default function SearchPage({navigation,route}){
     
     
    
-    let halo=route.params
-    
-    
-    
-      
     
     // console.log(onstate.map((content, i)=>{return (content.catagory)}))
     

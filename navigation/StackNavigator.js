@@ -8,9 +8,9 @@ import ImagePage from '../pages/ImagePage';
 import { Fontisto } from "@expo/vector-icons";
 import {useFonts} from "expo-font";
 import {firebase_db} from "../firebaseConfig";
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import * as Application from 'expo-application';
 
-
+const isIOS = Platform.OS === 'ios';
 
 
 const Stack = createStackNavigator();
@@ -23,7 +23,15 @@ const link =()=>{
 const StackNavigator = () =>{
 
     const [text,setText]=useState("");
-    
+    let found;
+    const [save, setSave] =useState({
+        "catagory":"",
+        "title":"",
+        "idx":"",
+        "image": "",
+        "desc":"",
+        "where":"",
+    })
     const [onstate,onSetState] = useState([]);
     useEffect(()=>{
         setTimeout(()=>{
@@ -33,26 +41,61 @@ const StackNavigator = () =>{
                 
             })
           },1000)
+          const onsplit=onstate.map((content)=>{return content.catagory})
           
+          
+        // console.log(Array.from(text));
+        
+
+        // if((Array.from(text)==onstate.map((content)=>{return content.catagory}))){
+        //     console.log("true")
+        // }else{
+        //     console.log("false")
+        //     console.log(Array.from(text))
+        //     console.log((onstate.map((content)=>{return Array.from(content.catagory)})))    
+        // }
+        // let found =onstate.map((content)=>{return content.where.indexOf(text)})
+         found =onstate.map((content)=>{
+            if(content.where.indexOf(text)==0)
+            {
+            // return Array.from(content.where)
+                if(content.where.indexOf(text)!==0){
+                    Array.from(content.where=null)                
+                }
+            return console.log(Array.from(content.where)/*.filter((e)=>{return e!=undefined})*/)
+            // return console.log(Array.from(content.where))
+            }
+        })
+
+
+        
+        
+        
     },[text])
     
-    let check=text.split("");
+    // const result=onstate.filter((e)=>{return e.catagory=="블랙워크"});
+
     
-        let dater=onstate.filter((e)=>{return e.catagory==check})
+    // console.log(onstate.map((content)=>{content.catagory}))
+    
+    
+    const like = async () => {
         
-
-        
-        const saveData=async()=>{
-            try{
-                
-            await AsyncStorage.setItem('textKey',text)
-            
-            
-            }catch(e){
-
-            }
+        let userUniqueId;
+        if(isIOS){
+        let iosId = await Application.getIosIdForVendorAsync();
+            userUniqueId = iosId
+        }else{
+            userUniqueId = await Application.androidId
         }
+    
         
+            firebase_db.ref('/savedata:'+userUniqueId+'/'+ save.idx).set(found);
+        
+        
+    }
+        
+                
         // const test=onstate.filter((e)=>{return e.catagory=="블랙워크"})
         
         
@@ -133,7 +176,7 @@ const StackNavigator = () =>{
                     headerTitle:()=>{
                         
                     return (
-                            
+                    
                     <TextInput 
                     style={styles.Input} 
                     placeholder='타투검색' 
@@ -147,7 +190,7 @@ const StackNavigator = () =>{
                     headerRight:()=>{
                     return (
                     <TouchableOpacity 
-                    onPress={()=>{navigation.navigate("SearchPage",text)}}>
+                    onPress={()=>{like()}}>
                         <Text>clear</Text>
                     </TouchableOpacity>
                         )
