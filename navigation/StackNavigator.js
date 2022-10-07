@@ -23,6 +23,7 @@ const link =()=>{
 const StackNavigator = () =>{
 
     const [text,setText]=useState("");
+
     let found;
     const [save, setSave] =useState({
         "catagory":"",
@@ -38,45 +39,11 @@ const StackNavigator = () =>{
             firebase_db.ref('/images').once('value').then((snapshot)=>{
               let tip=snapshot.val();
               onSetState(tip);
-                
+
             })
           },1000)
-          const onsplit=onstate.map((content)=>{return content.catagory})
-          
-          
-        // console.log(Array.from(text));
-        
-
-        // if((Array.from(text)==onstate.map((content)=>{return content.catagory}))){
-        //     console.log("true")
-        // }else{
-        //     console.log("false")
-        //     console.log(Array.from(text))
-        //     console.log((onstate.map((content)=>{return Array.from(content.catagory)})))    
-        // }
-        // let found =onstate.map((content)=>{return content.where.indexOf(text)})
-         found =onstate.map((content)=>{
-            if(content.where.indexOf(text)==0)
-            {
-            // return Array.from(content.where)
-                if(content.where.indexOf(text)!==0){
-                    Array.from(content.where=null)                
-                }
-            return console.log(Array.from(content.where)/*.filter((e)=>{return e!=undefined})*/)
-            // return console.log(Array.from(content.where))
-            }
-        })
-
-
-        
-        
-        
     },[text])
     
-    // const result=onstate.filter((e)=>{return e.catagory=="블랙워크"});
-
-    
-    // console.log(onstate.map((content)=>{content.catagory}))
     
     
     const like = async () => {
@@ -90,16 +57,22 @@ const StackNavigator = () =>{
         }
     
         
-            firebase_db.ref('/savedata:'+userUniqueId+'/'+ save.idx).set(found);
-        
+            firebase_db.ref('/savedata'+userUniqueId+'/'+ save.idx).set(found);
+            
         
     }
-        
-                
-        // const test=onstate.filter((e)=>{return e.catagory=="블랙워크"})
-        
-        
-        
+    found =onstate.map((e)=>{
+        if(
+            e.catagory.indexOf(text)!==-1 ||
+            e.title.indexOf(text)!==-1 ||
+            e.desc.indexOf(text)!==-1 ||
+            e.where.indexOf(text)!==-1
+            ) 
+        return e
+    })
+        .filter((e)=>{return e!==undefined})
+    
+    
     const onChangeText=(text)=>{
         setText(text);
         
@@ -153,7 +126,7 @@ const StackNavigator = () =>{
 
                     return(
                 <View style={{flexDirection:"row", marginHorizontal:10}}>
-                <TouchableOpacity onPress={()=>{navigation.navigate("SearchPage")}}>
+                <TouchableOpacity onPress={()=>{navigation.navigate("SearchPage",found)}}>
                     <Fontisto style={styles.fontImg} name='search'/>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={link}>
