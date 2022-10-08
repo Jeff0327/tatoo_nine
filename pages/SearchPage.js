@@ -9,46 +9,40 @@ const isIOS = Platform.OS === 'ios';
 export default function SearchPage({navigation,route}){
     
     const [onstate,onSetState] = useState([]);
-    const [Dater,LoadDater]=useState([]);
-    
-    let userUniqueId;
-  
-    
-    const getLike = async () => {
-      
-      
-      if(isIOS){
-      let iosId = await Application.getIosIdForVendorAsync();
-          userUniqueId = iosId
-      }else{
-          userUniqueId = await Application.androidId
-      }
-  
-      
-  }
-    
+    const [ready, setReady]=useState(true)
+
+
+
     useEffect(()=>{
       
-      
-        setTimeout(()=>{
-          getLike();  
-          firebase_db.ref('/savedata/' +userUniqueId).once('value').then((snapshot)=>{
-            console.log("파이어베이스에서 data가져옴")
-            let tip=snapshot.val();
-            
-            LoadDater(route.params);
-              onSetState(tip);
-              
-            
-            
-            console.log(onstate)
-          })
-        },1000)
-        console.log(route.params+'asd')
-        
-      },[route])
+      getLike(); 
+      },[])
 
-      
+      const getLike = async () => {
+        let userUniqueId;  
+        
+        if(isIOS){
+        let iosId = await Application.getIosIdForVendorAsync();
+        
+            userUniqueId = iosId
+        }else{
+            userUniqueId = await Application.androidId
+        }
+        console.log(userUniqueId)
+        firebase_db.ref('/savedata/'+userUniqueId).once('value').then((snapshot)=>{
+          console.log("파이어베이스에서 data가져옴")
+          let tip=snapshot.val();
+          // let tip_list=Object.values(tip)
+          
+            onSetState(tip)
+          
+          
+            
+            console.log(onstate.map((content)=>{return content.catagory}))
+            
+        })
+        
+    }
     return(
       
         
@@ -63,15 +57,7 @@ export default function SearchPage({navigation,route}){
           />
           )
         })} */}
-        {Dater.map((content, i)=>{
-          return(
-          <ImagePage 
-          content={content} 
-          key={i} 
-          navigation={navigation}
-          />
-          )
-        })}
+        
         </ScrollView>
       
     )

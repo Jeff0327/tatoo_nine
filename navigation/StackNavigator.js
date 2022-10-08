@@ -23,7 +23,7 @@ const link =()=>{
 const StackNavigator = () =>{
 
     const [text,setText]=useState("");
-
+    const [on,onSet]=useState(true);
     let found;
     const [save, setSave] =useState({
         "catagory":"",
@@ -39,10 +39,12 @@ const StackNavigator = () =>{
             firebase_db.ref('/images').once('value').then((snapshot)=>{
               let tip=snapshot.val();
               onSetState(tip);
-
+            
             })
           },1000)
+          
     },[text])
+    
     
     
     
@@ -57,7 +59,7 @@ const StackNavigator = () =>{
         }
     
         
-            firebase_db.ref('/savedata'+userUniqueId+'/'+ save.idx).set(found);
+            firebase_db.ref('/savedata/'+userUniqueId).set(found);
             
         
     }
@@ -77,10 +79,7 @@ const StackNavigator = () =>{
         setText(text);
         
     }
-    const onClear=()=>{ //텍스트 clear function
-        
-        setText("");
-    }
+    
     const [loaded] = useFonts({
         //Only Eng support font
         Alumni_Regular:require("../assets/font/AlumniSansPinstripe-Regular.ttf"),
@@ -111,8 +110,9 @@ const StackNavigator = () =>{
                         
                         <View>
                             <TouchableOpacity 
-                            onPress={()=>{navigation.navigate("MainPage",{text})}}
+                            onPress={()=>{navigation.navigate("MainPage")}}
                             >
+                                
                                 <Text style={styles.MainTitle}>TATOO NINE</Text>
                             </TouchableOpacity>
                         </View>
@@ -145,12 +145,13 @@ const StackNavigator = () =>{
             
             <Stack.Screen name="MainPage" component={MainPage}/>
             <Stack.Screen name="ImagePage" component={ImagePage}/>
-            <Stack.Screen name="SearchPage" component={SearchPage} options={({navigation})=>({ 
+            <Stack.Screen name="SearchPage" component={SearchPage} options={({})=>({ 
                     headerTitle:()=>{
                         
                     return (
                     
                     <TextInput 
+                    
                     style={styles.Input} 
                     placeholder='타투검색' 
                     value={text} 
@@ -164,7 +165,7 @@ const StackNavigator = () =>{
                     return (
                     <TouchableOpacity 
                     onPress={()=>{like()}}>
-                        <Text>clear</Text>
+                        <Text>Search</Text>
                     </TouchableOpacity>
                         )
                     },

@@ -1,5 +1,5 @@
 import React ,{useState,useEffect} from "react";
-import { StyleSheet, Image,View, Text, ScrollView,TouchableOpacity } from 'react-native';
+import { StyleSheet, Image,View, Text, ScrollView,TouchableOpacity,ImageBackground } from 'react-native';
 import {firebase_db} from "../firebaseConfig";
 export default function DetailPage({content,navigation,route}){
     useEffect(()=>{
@@ -13,7 +13,11 @@ export default function DetailPage({content,navigation,route}){
     return(
         
         <View>
-            
+            <ImageBackground
+                source={require("../background.jpg")}
+                style={{width:"100%",height:"100%"}}>
+
+            </ImageBackground>
            
         </View>
     )

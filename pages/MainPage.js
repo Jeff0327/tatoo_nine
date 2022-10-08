@@ -11,13 +11,14 @@ import {
   PublisherBanner,
   AdMobRewarded
 } from 'expo-ads-admob';
+import { faRandom } from '@fortawesome/free-solid-svg-icons';
 
-const DEFINE_BLACKWALK="https://firebasestorage.googleapis.com/v0/b/sparta-myhoneytip-seop.appspot.com/o/images%2Fb041371d22445e3ff82d4c7c907e08d3.jpg?alt=media&token=094be119-62d0-45f9-b2d8-13c4a9751326"
-const DEFINE_BLACKANDGRAY="https://firebasestorage.googleapis.com/v0/b/sparta-myhoneytip-seop.appspot.com/o/images%2F0d27691e4a7363e002823a8d73ddc58c.jpg?alt=media&token=46b23130-5c12-4197-bb56-7fd8820f8af0"
-const DEFINE_OLDSCOOL="https://firebasestorage.googleapis.com/v0/b/sparta-myhoneytip-seop.appspot.com/o/images%2Faa.jpg?alt=media&token=793768a5-ef91-4f81-bb4e-ce6eb0c135d2"
-const DEFINE_LINEWALK="https://firebasestorage.googleapis.com/v0/b/tatoo-nine.appspot.com/o/images%2F76af5f7957c8f59d7c0b1c06ab23344e.jpg?alt=media&token=482a1600-bc70-490f-b36a-9723809c1e15"
-const DEFINE_IREZUMI="https://firebasestorage.googleapis.com/v0/b/tatoo-nine.appspot.com/o/images%2F743420a602158d2b903973c9d5b36d6d.jpg?alt=media&token=f2cf53e9-09cf-4960-b30a-e6fcc78fde89"
-const DEFINE_CHIKANO="https://firebasestorage.googleapis.com/v0/b/tatoo-nine.appspot.com/o/images%2F98e6856cfec8ab4475fcd53992cc1c0a.jpg?alt=media&token=7a624e0a-6e3b-4990-91af-a85d7354be9c"
+const DEFINE_BLACKWALK="https://firebasestorage.googleapis.com/v0/b/tatoo-nine.appspot.com/o/images%2Fcontent%2Fblackwalk.jpg?alt=media&token=501816e3-ff9b-48d7-b0c7-80840355a41e"
+const DEFINE_BLACKANDGRAY="https://firebasestorage.googleapis.com/v0/b/tatoo-nine.appspot.com/o/images%2Fcontent%2Fblackandgray.jpg?alt=media&token=c394104b-ca0f-41e3-a401-920d4ecbba32"
+const DEFINE_OLDSCOOL="https://firebasestorage.googleapis.com/v0/b/tatoo-nine.appspot.com/o/images%2Fcontent%2Foldschool.jpg?alt=media&token=6b9c627f-67e7-4e20-9c81-9952bbd53e47"
+const DEFINE_LINEWALK="https://firebasestorage.googleapis.com/v0/b/tatoo-nine.appspot.com/o/images%2Fcontent%2Flinewalk.jpg?alt=media&token=3b414f93-ddfb-451b-aec1-df20dda0a453"
+const DEFINE_IREZUMI="https://firebasestorage.googleapis.com/v0/b/tatoo-nine.appspot.com/o/images%2Fcontent%2Firez.jpg?alt=media&token=a37b9225-7d9f-4d56-90ec-79a41d703d0d"
+const DEFINE_CHIKANO="https://firebasestorage.googleapis.com/v0/b/tatoo-nine.appspot.com/o/images%2Fcontent%2Fchikano.jpg?alt=media&token=e1727bf0-b2a7-48c1-ac49-5e7f9ce325dc"
 
 export default function MainPage({navigation, route}) {
     
@@ -25,6 +26,7 @@ export default function MainPage({navigation, route}) {
     const [state, setState] = useState([]);
     const [onstate,onSetState] = useState([]);
     
+
     const [plus, setPlus] = useState(false);
     const [filt,setFilt] = useState("전체");
     const [result,setResult]=useState([]); 
@@ -40,7 +42,7 @@ export default function MainPage({navigation, route}) {
           
         })
         
-      },1000)
+      },500)
 
       
     },[filt])
@@ -91,11 +93,12 @@ export default function MainPage({navigation, route}) {
       setFilt("버튼6");
     }
   return (
-    
     <View>
+     
+    
       
       <ScrollView>
-        
+      
       <View style={styles.BtnContainer}>
         <View>
         <TouchableOpacity style={styles.Btn} onPress={btn1}>
@@ -168,6 +171,8 @@ export default function MainPage({navigation, route}) {
       {filt=="전체" ? 
       <ScrollView style={styles.mainImgContainer} horizontal = {false} pagingEnabled ={true}>
         {onstate.map((content, i)=>{
+          
+          
           return(
           <ImagePage content={content} key={i} navigation={navigation}/>
           )
@@ -242,23 +247,25 @@ export default function MainPage({navigation, route}) {
       <StatusBar style="auto" />
       
       </ScrollView>
-        <View style={styles.bannerContainer}>
-      {Platform.OS === 'ios' ? (
-                <AdMobBanner
-                  bannerSize="fullBanner"
-                  servePersonalizedAds={true}
-                  adUnitID="ca-app-pub-5579008343368676/6885179499"
-                  style={styles.banner}
-                />
-            ) : (
-                <AdMobBanner
-                  bannerSize="fullBanner"
-                  servePersonalizedAds={true}
-                  adUnitID="ca-app-pub-5579008343368676/9202552776"
-                  style={styles.banner}
-                />
-            )}
-      </View>
+        
+    
+    <View style={styles.bannerContainer}>
+    {Platform.OS === 'ios' ? (
+              <AdMobBanner
+                bannerSize="fullBanner"
+                servePersonalizedAds={true}
+                adUnitID="ca-app-pub-5579008343368676/6885179499"
+                style={styles.banner}
+              />
+          ) : (
+              <AdMobBanner
+                bannerSize="fullBanner"
+                servePersonalizedAds={true}
+                adUnitID="ca-app-pub-5579008343368676/9202552776"
+                style={styles.banner}
+              />
+          )}
+    </View>
     </View>
     
   );
@@ -303,7 +310,10 @@ const styles = StyleSheet.create({
     color:"white",
   },
   mainImgContainer:{
+    
     marginTop:10,
+    marginBottom:30,
+    
   },
   bannerContainer:{
     flex:1,
@@ -313,5 +323,8 @@ const styles = StyleSheet.create({
   banner:{
     width:"100%",
     height:100,
+    position: 'absolute',
+    bottom:-30,
+    
   }
 });
