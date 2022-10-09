@@ -4,6 +4,7 @@ import { StyleSheet} from 'react-native';
 import { NavigationContainer } from "@react-navigation/native";
 import StackNavigator from "./navigation/StackNavigator";
 import LoadingPage from "./pages/LoadingPage";
+import SearchPage from "./pages/SearchPage";
 export default function App() {
 
     const [loading,setLoading] =useState(true)

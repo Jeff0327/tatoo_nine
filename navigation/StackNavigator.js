@@ -1,7 +1,7 @@
-import React,{useState,useEffect} from 'react';
+import React,{useState,useEffect,useRef} from 'react';
 import * as Linking from 'expo-linking';
 import { createStackNavigator } from '@react-navigation/stack';
-import { StyleSheet, Image,View, Text, ScrollView,TouchableOpacity,TextInput } from 'react-native';
+import { StyleSheet, Image,View, Text, ScrollView,TouchableOpacity,TextInput, RefreshControl } from 'react-native';
 import MainPage from '../pages/MainPage';
 import SearchPage from '../pages/SearchPage';
 import ImagePage from '../pages/ImagePage';
@@ -9,6 +9,7 @@ import { Fontisto } from "@expo/vector-icons";
 import {useFonts} from "expo-font";
 import {firebase_db} from "../firebaseConfig";
 import * as Application from 'expo-application';
+import { faHourglassEmpty } from '@fortawesome/free-solid-svg-icons';
 
 const isIOS = Platform.OS === 'ios';
 
@@ -22,64 +23,6 @@ const link =()=>{
 
 const StackNavigator = () =>{
 
-    const [text,setText]=useState("");
-    const [on,onSet]=useState(true);
-    let found;
-    const [save, setSave] =useState({
-        "catagory":"",
-        "title":"",
-        "idx":"",
-        "image": "",
-        "desc":"",
-        "where":"",
-    })
-    const [onstate,onSetState] = useState([]);
-    useEffect(()=>{
-        setTimeout(()=>{
-            firebase_db.ref('/images').once('value').then((snapshot)=>{
-              let tip=snapshot.val();
-              onSetState(tip);
-            
-            })
-          },1000)
-          
-    },[text])
-    
-    
-    
-    
-    const like = async () => {
-        
-        let userUniqueId;
-        if(isIOS){
-        let iosId = await Application.getIosIdForVendorAsync();
-            userUniqueId = iosId
-        }else{
-            userUniqueId = await Application.androidId
-        }
-    
-        
-            firebase_db.ref('/savedata/'+userUniqueId).set(found);
-            
-        
-    }
-    found =onstate.map((e)=>{
-        if(
-            e.catagory.indexOf(text)!==-1 ||
-            e.title.indexOf(text)!==-1 ||
-            e.desc.indexOf(text)!==-1 ||
-            e.where.indexOf(text)!==-1
-            ) 
-        return e
-    })
-        .filter((e)=>{return e!==undefined})
-    
-    
-    const onChangeText=(text)=>{
-        setText(text);
-        
-    }
-    
     const [loaded] = useFonts({
         //Only Eng support font
         Alumni_Regular:require("../assets/font/AlumniSansPinstripe-Regular.ttf"),
@@ -90,7 +33,7 @@ const StackNavigator = () =>{
     if(!loaded){
         return null;
     }
-
+    
     return (
         
         <Stack.Navigator initialRouteName='MainPage'
@@ -104,15 +47,12 @@ const StackNavigator = () =>{
                 headerTitleAlign:"Left",
                 headerTintColor: "#000",
                 headerBackTitleVisible: false,
+                
                 headerTitle:()=>{ 
                     return (
                     <View>
-                        
                         <View>
-                            <TouchableOpacity 
-                            onPress={()=>{navigation.navigate("MainPage")}}
-                            >
-                                
+                            <TouchableOpacity>
                                 <Text style={styles.MainTitle}>TATOO NINE</Text>
                             </TouchableOpacity>
                         </View>
@@ -122,11 +62,9 @@ const StackNavigator = () =>{
                 },
                 headerRight:()=>{
                     
-                    
-
                     return(
                 <View style={{flexDirection:"row", marginHorizontal:10}}>
-                <TouchableOpacity onPress={()=>{navigation.navigate("SearchPage",found)}}>
+                <TouchableOpacity onPress={()=>{navigation.navigate("SearchPage")}}>
                     <Fontisto style={styles.fontImg} name='search'/>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={link}>
@@ -145,35 +83,9 @@ const StackNavigator = () =>{
             
             <Stack.Screen name="MainPage" component={MainPage}/>
             <Stack.Screen name="ImagePage" component={ImagePage}/>
-            <Stack.Screen name="SearchPage" component={SearchPage} options={({})=>({ 
-                    headerTitle:()=>{
-                        
-                    return (
-                    
-                    <TextInput 
-                    
-                    style={styles.Input} 
-                    placeholder='타투검색' 
-                    value={text} 
-                    onChangeText={onChangeText}>
-                    </TextInput>
-                    
-                        )
-                    },
-                    
-                    headerRight:()=>{
-                    return (
-                    <TouchableOpacity 
-                    onPress={()=>{like()}}>
-                        <Text>Search</Text>
-                    </TouchableOpacity>
-                        )
-                    },
-                })
-                }
-                />
-                
+            <Stack.Screen name="SearchPage" component={SearchPage} options={{headerShown:false}}/>
             </Stack.Navigator>
+            
     )
 }
 
@@ -188,11 +100,6 @@ const styles=StyleSheet.create({
         fontSize:30,
         marginRight:5,
       },
-      DetailTitle:{
-        fontSize:20,
-      },
-      Input:{
-        fontSize:15,
-      }
+      
 })
 export default StackNavigator;
