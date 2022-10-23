@@ -5,6 +5,7 @@ import { StyleSheet, Image,View, Text, ScrollView,TouchableOpacity,TextInput, Re
 import MainPage from '../pages/MainPage';
 import SearchPage from '../pages/SearchPage';
 import ImagePage from '../pages/ImagePage';
+import JoinPage from "../pages/JoinPage";
 import { Fontisto } from "@expo/vector-icons";
 import {useFonts} from "expo-font";
 import {firebase_db} from "../firebaseConfig";
@@ -67,9 +68,9 @@ const StackNavigator = () =>{
                 <TouchableOpacity onPress={()=>{navigation.navigate("SearchPage")}}>
                     <Fontisto style={styles.fontImg} name='search'/>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={link}>
+                {/* <TouchableOpacity onPress={link}>
                     <Fontisto style={styles.fontImg} name='instagram'/>
-                </TouchableOpacity>
+                </TouchableOpacity> */}
                 
             </View>
         )    
@@ -83,6 +84,7 @@ const StackNavigator = () =>{
             
             <Stack.Screen name="MainPages" component={MainPage}/>
             <Stack.Screen name="ImagePage" component={ImagePage}/>
+            <Stack.Screen name="JoinPage" component={JoinPage} options={{headerShown:false}}/>
             <Stack.Screen name="SearchPage" component={SearchPage} options={{headerShown:false}}/>
             </Stack.Navigator>
             

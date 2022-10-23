@@ -5,7 +5,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import StackNavigator from "./navigation/StackNavigator";
 import LoadingPage from "./pages/LoadingPage";
 import { createDrawerNavigator } from '@react-navigation/drawer';
-import LoginMenu from "./pages/LoginMenu";
+import LoginPage from "./pages/LoginPage";
 const Drawer = createDrawerNavigator();
 export default function App() {
 
@@ -28,7 +28,7 @@ export default function App() {
     <NavigationContainer>
       <Drawer.Navigator initialRouteName="MainPage">
         <Drawer.Screen name="MainPage" component={StackNavigator}/>
-        <Drawer.Screen name="LoginMenu" component={LoginMenu} />
+        <Drawer.Screen name="LoginPage" component={LoginPage} />
       </Drawer.Navigator>
       
     </NavigationContainer>
