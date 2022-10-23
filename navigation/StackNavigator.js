@@ -36,7 +36,7 @@ const StackNavigator = () =>{
     
     return (
         
-        <Stack.Navigator initialRouteName='MainPage'
+        <Stack.Navigator initialRouteName='MainPages'
             
             screenOptions={({navigation})=>({
                 headerStyle: {
@@ -81,7 +81,7 @@ const StackNavigator = () =>{
             })}  
         >
             
-            <Stack.Screen name="MainPage" component={MainPage}/>
+            <Stack.Screen name="MainPages" component={MainPage}/>
             <Stack.Screen name="ImagePage" component={ImagePage}/>
             <Stack.Screen name="SearchPage" component={SearchPage} options={{headerShown:false}}/>
             </Stack.Navigator>

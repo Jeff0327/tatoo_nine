@@ -4,7 +4,9 @@ import { StyleSheet} from 'react-native';
 import { NavigationContainer } from "@react-navigation/native";
 import StackNavigator from "./navigation/StackNavigator";
 import LoadingPage from "./pages/LoadingPage";
-import SearchPage from "./pages/SearchPage";
+import { createDrawerNavigator } from '@react-navigation/drawer';
+import LoginMenu from "./pages/LoginMenu";
+const Drawer = createDrawerNavigator();
 export default function App() {
 
     const [loading,setLoading] =useState(true)
@@ -24,7 +26,11 @@ export default function App() {
     
   return(
     <NavigationContainer>
-      <StackNavigator/>
+      <Drawer.Navigator initialRouteName="MainPage">
+        <Drawer.Screen name="MainPage" component={StackNavigator}/>
+        <Drawer.Screen name="LoginMenu" component={LoginMenu} />
+      </Drawer.Navigator>
+      
     </NavigationContainer>
   )
     }
