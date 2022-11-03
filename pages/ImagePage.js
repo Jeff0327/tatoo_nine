@@ -1,8 +1,8 @@
-import React ,{useState,useEffect} from "react";
+import React ,{useState,useEffect, useContext} from "react";
 import { StyleSheet, Image,View, Text, ScrollView,TouchableOpacity,Share } from 'react-native';
 import {useFonts} from "expo-font";
 import { Fontisto } from "@expo/vector-icons";
-
+// import ImageModal from 'react-native-image-modal';
 
 const TATOOISTIMG="https://firebasestorage.googleapis.com/v0/b/tatoo-nine.appspot.com/o/images%2Fcontent%2Fblackwalk.jpg?alt=media&token=501816e3-ff9b-48d7-b0c7-80840355a41e"
 export default function ImagePage({content,navigation}){
@@ -29,14 +29,19 @@ export default function ImagePage({content,navigation}){
             like===true ? onlike(false) : onlike(true)
             console.log(like)
         }
+
+        
         return(
         
             <View>
                 <View style={styles.container}>
+                    <View style={styles.Artist}>
                     <Image style={styles.tatooist} source={{uri:TATOOISTIMG}}/>
-                    <Text style={styles.pos}>부위/{content.where}</Text>
-                    <Image style={styles.mainImg}source={{uri: content.image}}/>
-                    <Text style={styles.kindof}>장르/{content.catagory}</Text>
+                    <Text style={styles.pos}>{`${content.crew}/${content.artist}`}</Text>
+                    </View>
+                    <Image resizeMode="stretch" style={styles.mainImg}source={{uri: content.image}}/>
+                    {/* <ImageModal swipeToDismiss={false} style={styles.mainImg} source={{uri:content.image}}/> */}
+                    <Text style={styles.kindof}>{content.catagory}</Text>
                     <Text style={styles.title}>{content.title}</Text>
                     <Text style={styles.desc} numberOfLines={2}>{content.desc.length > 20 ? content.desc.slice(0,20)+'...' : content.desc}</Text>
                     <View style={{flexDirection:"row", justifyContent:"space-between"}}>
@@ -59,12 +64,16 @@ export default function ImagePage({content,navigation}){
 const styles=StyleSheet.create({
     container:{
         marginBottom:20,
-        backgroundColor:"#D3D3D3",
+        backgroundColor:"white",
         shadowColor:"#A9A9A9",
         shadowOpacity:0.5,
         shadowOffset:{width:3,height:3},
         padding:10,
         flex:1,
+    },
+    Artist:{
+        flexDirection:"row",
+        margin:5,
     },
     mainImg:{
         width:340,
@@ -85,6 +94,8 @@ const styles=StyleSheet.create({
         fontSize:15,
         fontWeight:"500",
         fontFamily:"Nanum_Coding",
+        alignSelf:"center",
+        margin:10,
     },
     kindof:{
         fontSize:15,
@@ -105,5 +116,5 @@ const styles=StyleSheet.create({
         width:50,
         height:50,
         flexDirection:"row",
-    }
+    },
 })

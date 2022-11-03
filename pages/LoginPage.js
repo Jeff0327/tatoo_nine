@@ -1,10 +1,12 @@
-import React from "react";
+import React,{useState, useEffect} from "react";
 import { StyleSheet,TextInput, Image,View, Text, Alert,ScrollView,TouchableOpacity,ImageBackground ,PhoneNumberInput} from 'react-native';
-export default function LoginPage({navigation}){
 
+
+export default function LoginPage({navigation}){
+    Alert.alert("준비중입니다")
     return (
         <View>
-            <View style={styles.loginForm}>
+            {/* <View style={styles.loginForm}>
                 <View style={{flexDirection:"row" ,marginBottom:20,}}>
                     <Text style={styles.text}>아이디:</Text><TextInput style={styles.text} placeholder="아이디를 입력하세요"/>
                 </View>
@@ -31,12 +33,12 @@ export default function LoginPage({navigation}){
             <TouchableOpacity>
                 <Text>비밀번호찾기</Text>
             </TouchableOpacity>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={loginWithSocial}>
                 <Text>구글로그인</Text>
             </TouchableOpacity>
             <TouchableOpacity>
                 <Text>Facebook</Text>
-            </TouchableOpacity>
+            </TouchableOpacity> */}
         </View>
     )
 }

@@ -3,7 +3,7 @@ import { StyleSheet, Image,View, Text, ScrollView,TouchableOpacity,TextInput, Di
 import React, {useState, useEffect} from "react";
 import {firebase_db} from "../firebaseConfig";
 import ImagePage from "../pages/ImagePage";
-
+import { Fontisto } from "@expo/vector-icons";
 import {
   setTestDeviceIDAsync,
   AdMobBanner,
@@ -85,11 +85,16 @@ export default function MainPage({navigation, route}) {
       setResult(onstate.filter((d)=>{return d.catagory=="기타3"}))
       setFilt("버튼6");
     }
+
+    const UpBtn=()=>{
+      console.log("UP!");
+    }
   return (
     <View>
       <ScrollView>
           <View style={styles.BtnContainer}>
             <View>
+            
             <TouchableOpacity style={styles.Btn} onPress={btn1}>
               <Image style={styles.BtnImg} source={{uri:DEFINE_BLACKWALK}}/>
               <Text style={styles.BtnText}>블랙워크</Text>
@@ -162,7 +167,7 @@ export default function MainPage({navigation, route}) {
         {onstate.map((content, i)=>{
           
           
-          return(
+          return(  
           <ImagePage content={content} key={i} navigation={navigation}/>
           )
         })}
@@ -233,7 +238,7 @@ export default function MainPage({navigation, route}) {
       null
       }
       </ScrollView>
-        
+      
     
       <View style={styles.bannerContainer}>
       {Platform.OS === 'ios' ? (

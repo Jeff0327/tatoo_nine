@@ -5,6 +5,7 @@ import StackNavigator from "./navigation/StackNavigator";
 import LoadingPage from "./pages/LoadingPage";
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import LoginPage from "./pages/LoginPage";
+import LikePage from "./pages/LikePage";
 import { Fontisto } from "@expo/vector-icons";
 import {useFonts} from "expo-font";
 import { StyleSheet,TextInput, Image,View, Text, Alert,ScrollView,TouchableOpacity,ImageBackground ,PhoneNumberInput} from 'react-native';
@@ -40,8 +41,8 @@ export default function App() {
     
   return(
     <NavigationContainer>
-      <Drawer.Navigator initialRouteName="MainPage">
-        <Drawer.Screen name="MainPage" component={StackNavigator} options={({navigation})=>({
+      <Drawer.Navigator initialRouteName="홈">
+        <Drawer.Screen name="홈" component={StackNavigator} options={({navigation})=>({
                 headerStyle: {
                     backgroundColor: "white",
                     borderBottomColor: "white",
@@ -73,7 +74,8 @@ export default function App() {
                 },
             })}  
         />
-        <Drawer.Screen name="LoginPage" component={LoginPage} />
+        <Drawer.Screen name="사진올리기" component={LoginPage} />
+        <Drawer.Screen name="찜 목록" component={LikePage} />
       </Drawer.Navigator>
     </NavigationContainer>
     )
