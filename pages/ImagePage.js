@@ -2,7 +2,8 @@ import React ,{useState,useEffect, useContext} from "react";
 import { StyleSheet, Image,View, Text, ScrollView,TouchableOpacity,Share } from 'react-native';
 import {useFonts} from "expo-font";
 import { Fontisto } from "@expo/vector-icons";
-// import ImageModal from 'react-native-image-modal';
+const isIOS = Platform.OS === 'ios';
+import {firebase_db} from "../firebaseConfig";
 
 const TATOOISTIMG="https://firebasestorage.googleapis.com/v0/b/tatoo-nine.appspot.com/o/images%2Fcontent%2Fblackwalk.jpg?alt=media&token=501816e3-ff9b-48d7-b0c7-80840355a41e"
 export default function ImagePage({content,navigation}){
@@ -18,7 +19,15 @@ export default function ImagePage({content,navigation}){
             Nanum_Coding:require("../assets/font/NanumGothicCoding-Regular.ttf"),
             Dongle_Regular:require("../assets/font/Dongle-Regular.ttf"),
             NanumPen_Regular:require("../assets/font/NanumPenScript-Regular.ttf"),
+            Nanum_Myeongjo:require("../assets/font/NanumMyeongjo-Regular.ttf"),
+            Cute_Font:require("../assets/font/CuteFont-Regular.ttf"),
         })
+        
+        
+        
+
+        
+        
         if(!loaded){
             return null;
         }
@@ -27,9 +36,25 @@ export default function ImagePage({content,navigation}){
         }
         const onLike=()=>{
             like===true ? onlike(false) : onlike(true)
-            console.log(like)
+            
         }
-
+        // const saveContent=async()=>{
+        //     let userUniqueId;
+        //     if(isIOS){
+        //     let iosId = await Application.getIosIdForVendorAsync();
+        //         userUniqueId = iosId
+        //     }else{
+        //         userUniqueId = await Application.androidId
+        //     }
+            
+        //     //     console.log(userUniqueId)
+        //     //     firebase_db.ref('/like/'+user_id+'/'+ content.idx).set(content,function(error){
+        //     //       console.log(error)
+        //     //       Alert.alert("찜 완료!")
+        //     //   });
+            
+            
+        // }
         
         return(
         
@@ -37,13 +62,18 @@ export default function ImagePage({content,navigation}){
                 <View style={styles.container}>
                     <View style={styles.Artist}>
                     <Image style={styles.tatooist} source={{uri:TATOOISTIMG}}/>
-                    <Text style={styles.pos}>{`${content.crew}/${content.artist}`}</Text>
+                        <TouchableOpacity onPress={()=>{navigation.navigate("TatooArtist",content)}}>
+                        <Text style={styles.pos}>{`${content.crew}/${content.artist}`}</Text>
+                        </TouchableOpacity>
                     </View>
-                    <Image resizeMode="stretch" style={styles.mainImg}source={{uri: content.image}}/>
-                    {/* <ImageModal swipeToDismiss={false} style={styles.mainImg} source={{uri:content.image}}/> */}
-                    <Text style={styles.kindof}>{content.catagory}</Text>
-                    <Text style={styles.title}>{content.title}</Text>
+                    <TouchableOpacity onPress={()=>{navigation.navigate("TatooArtist",content)}}>
+                        <Image resizeMode="stretch" style={styles.mainImg}source={{uri: content.image}}/>
+                    </TouchableOpacity>
+                    <Text style={styles.kindof}>{`| ${content.catagory} | `}</Text>
+                    <View style={{flexDirection:"row"}}>
+                    <Text style={styles.title}>{`| ${content.title} | `}</Text>
                     <Text style={styles.desc} numberOfLines={2}>{content.desc.length > 20 ? content.desc.slice(0,20)+'...' : content.desc}</Text>
+                    </View>
                     <View style={{flexDirection:"row", justifyContent:"space-between"}}>
                         <TouchableOpacity onPress={onLike}style={styles.likeBtn}>
                             {like===false ?
@@ -82,24 +112,24 @@ const styles=StyleSheet.create({
         
     },
     title:{
-        fontSize:15,
+        fontSize:20,
         fontWeight:"400",
-        fontFamily:"Nanum_Coding",
+        fontFamily:"Cute_Font",
     },
     desc:{
         fontSize:15,
-        fontFamily:"Nanum_Coding",
+        fontFamily:"Cute_Font",
     },
     pos:{
-        fontSize:15,
+        fontSize:25,
         fontWeight:"500",
-        fontFamily:"Nanum_Coding",
+        fontFamily:"NanumPen_Regular",
         alignSelf:"center",
         margin:10,
     },
     kindof:{
-        fontSize:15,
-        fontFamily:"Nanum_Coding",
+        fontSize:20,
+        fontFamily:"Cute_Font",
     },
     shareBtn:{
         alignSelf:"flex-end",

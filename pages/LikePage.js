@@ -3,11 +3,12 @@ import { StyleSheet,TextInput, Image,View, Text, Alert,ScrollView,TouchableOpaci
 
 export default function LikePage(){
     
-        
+        let a=[1,2,3,4,5]
+        let b=Math.floor(Math.random()*a.length)
     
     return(
     <View>
-        
+        <Text>{b}</Text>
     </View>
     )
 }

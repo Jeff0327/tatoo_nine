@@ -19,13 +19,15 @@ export default function App() {
     const [loaded] = useFonts({
       //Eng
       
-      
+      Lobster:require("./assets/font/Lobster-Regular.ttf"),
       
 
       //Kor
       Nanum_Coding:require("./assets/font/NanumGothicCoding-Regular.ttf"),
       Dongle_Regular:require("./assets/font/Dongle-Regular.ttf"),
       NanumPen_Regular:require("./assets/font/NanumPenScript-Regular.ttf"),
+      Gowun_Batang:require("./assets/font/GowunBatang-Regular.ttf"),
+      Gowun_Batang_Bold:require("./assets/font/GowunBatang-Bold.ttf")
   })
     
     useEffect(()=>{
@@ -54,12 +56,8 @@ export default function App() {
                 
                 headerTitle:()=>{ 
                     return (
-                    <View>
-                        <View>
-                            <TouchableOpacity>
-                                <Text style={styles.MainTitle}>TATOO NINE</Text>
-                            </TouchableOpacity>
-                        </View>
+                    <View style={styles.MainTitleView}>
+                        <Text style={styles.MainTitle}>TATOO</Text>
                     </View>
                     )
                 },
@@ -74,7 +72,7 @@ export default function App() {
                 },
             })}  
         />
-        <Drawer.Screen name="사진올리기" component={LoginPage} />
+        <Drawer.Screen name="로그인" component={LoginPage} />
         <Drawer.Screen name="찜 목록" component={LikePage} />
       </Drawer.Navigator>
     </NavigationContainer>
@@ -82,12 +80,14 @@ export default function App() {
   }
 }
 const styles = StyleSheet.create({
+  MainTitleView:{
+    marginLeft:70,
+    marginTop:0,
+  },
   MainTitle:{
-    fontSize:25,
+    fontSize:30,
     fontWeight:"500",
-    fontFamily:"Nanum_Coding",
-    textAlign:"center",
-    paddingLeft:50,
+    fontFamily:"Lobster",
 },
   fontImg:{
     fontSize:30,

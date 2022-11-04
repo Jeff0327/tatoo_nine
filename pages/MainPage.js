@@ -166,7 +166,6 @@ export default function MainPage({navigation, route}) {
       <ScrollView style={styles.mainImgContainer} horizontal = {false} pagingEnabled ={true}>
         {onstate.map((content, i)=>{
           
-          
           return(  
           <ImagePage content={content} key={i} navigation={navigation}/>
           )
@@ -176,6 +175,7 @@ export default function MainPage({navigation, route}) {
       {result.map((content, i)=>{
         return(
         <ImagePage content={content} key={i} navigation={navigation}/>
+        
         )
       })}
       </ScrollView> : 
