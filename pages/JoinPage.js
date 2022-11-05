@@ -1,6 +1,6 @@
 import React from "react";
 import { StyleSheet,TextInput, Image,View, Text, Alert,ScrollView,TouchableOpacity,ImageBackground ,PhoneNumberInput} from 'react-native';
-import "firebase/firestore";
+
 
 export default function LoginMenu({navigation}){
     

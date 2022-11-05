@@ -6,6 +6,7 @@ import LoadingPage from "./pages/LoadingPage";
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import LoginPage from "./pages/LoginPage";
 import LikePage from "./pages/LikePage";
+import TatooArtist from "./pages/TatooArtist";
 import { Fontisto } from "@expo/vector-icons";
 import {useFonts} from "expo-font";
 import { StyleSheet,TextInput, Image,View, Text, Alert,ScrollView,TouchableOpacity,ImageBackground ,PhoneNumberInput} from 'react-native';
@@ -43,8 +44,9 @@ export default function App() {
     
   return(
     <NavigationContainer>
-      <Drawer.Navigator initialRouteName="홈">
+      <Drawer.Navigator initialRouteName="홈" screenOptions={{drawerPosition: 'right'}} >
         <Drawer.Screen name="홈" component={StackNavigator} options={({navigation})=>({
+          
                 headerStyle: {
                     backgroundColor: "white",
                     borderBottomColor: "white",

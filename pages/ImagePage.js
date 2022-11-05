@@ -2,13 +2,19 @@ import React ,{useState,useEffect, useContext} from "react";
 import { StyleSheet, Image,View, Text, ScrollView,TouchableOpacity,Share } from 'react-native';
 import {useFonts} from "expo-font";
 import { Fontisto } from "@expo/vector-icons";
+import * as Application from 'expo-application';
 const isIOS = Platform.OS === 'ios';
 import {firebase_db} from "../firebaseConfig";
 
 const TATOOISTIMG="https://firebasestorage.googleapis.com/v0/b/tatoo-nine.appspot.com/o/images%2Fcontent%2Fblackwalk.jpg?alt=media&token=501816e3-ff9b-48d7-b0c7-80840355a41e"
-export default function ImagePage({content,navigation}){
+export default function ImagePage({content,navigation,onstate, onSetState}){
     
         const [like, onlike]=useState(false);
+        
+        
+        
+        
+        let userUniqueId;
         const [loaded] = useFonts({
             //Eng
             Alumni_Regular:require("../assets/font/AlumniSansPinstripe-Regular.ttf"),
@@ -22,11 +28,56 @@ export default function ImagePage({content,navigation}){
             Nanum_Myeongjo:require("../assets/font/NanumMyeongjo-Regular.ttf"),
             Cute_Font:require("../assets/font/CuteFont-Regular.ttf"),
         })
+        useEffect(()=>{
+            likely();
+            remove();
+        },[like])
+        const likely = async () => {
         
+            if(isIOS){
+            let iosId = await Application.getIosIdForVendorAsync();
+                userUniqueId = iosId
+            }else{
+                userUniqueId = await Application.androidId
+            }
+            
+            if(like===true){
+                firebase_db.ref('/like/'+userUniqueId+content.idx).set(content,function(error){
+                    console.log(error)
+                    
+                });
+            }
+               
+        }
         
-        
-
-        
+        const remove = async (cidx) => {
+            
+            if(isIOS){
+            let iosId = await Application.getIosIdForVendorAsync();
+                userUniqueId = iosId
+            }else{
+                userUniqueId = await Application.androidId
+            }
+      
+            if(like===false){
+                firebase_db.ref('/like/'+userUniqueId+'/'+cidx).remove().then(function(){
+              
+                    //내가 찝 해제 버튼을 누른 카드 idx를 가지고
+                    //찝페이지의 찜데이터를 조회해서
+                    //찜해제를 원하는 카드를 제외한 새로운 찜 데이터(리스트 형태!)를 만든다
+                    let result = onstate.filter((data,i)=>{
+                      return data.idx !== cidx
+                    })
+                    //이렇게 만들었으면!
+                    //LikePage로 부터 넘겨 받은 tip(찜 상태 데이터)를
+                    //filter 함수로 새롭게 만든 찜 데이터를 구성한다!
+                    console.log(result)
+                    onSetState(result)
+            
+                  })
+            }
+            
+        }
         
         if(!loaded){
             return null;
@@ -35,26 +86,12 @@ export default function ImagePage({content,navigation}){
             Share.share({message:`${content.image}`})
         }
         const onLike=()=>{
-            like===true ? onlike(false) : onlike(true)
+            like===true ? 
+            onlike(false)  : 
+            onlike(true) 
             
         }
-        // const saveContent=async()=>{
-        //     let userUniqueId;
-        //     if(isIOS){
-        //     let iosId = await Application.getIosIdForVendorAsync();
-        //         userUniqueId = iosId
-        //     }else{
-        //         userUniqueId = await Application.androidId
-        //     }
-            
-        //     //     console.log(userUniqueId)
-        //     //     firebase_db.ref('/like/'+user_id+'/'+ content.idx).set(content,function(error){
-        //     //       console.log(error)
-        //     //       Alert.alert("찜 완료!")
-        //     //   });
-            
-            
-        // }
+        
         
         return(
         

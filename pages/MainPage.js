@@ -167,7 +167,7 @@ export default function MainPage({navigation, route}) {
         {onstate.map((content, i)=>{
           
           return(  
-          <ImagePage content={content} key={i} navigation={navigation}/>
+          <ImagePage content={content} key={i} navigation={navigation} onstate={onstate} onSetState={onSetState}/>
           )
         })}
       </ScrollView> : 
