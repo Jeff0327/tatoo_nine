@@ -5,7 +5,7 @@ import MainPage from '../pages/MainPage';
 import SearchPage from '../pages/SearchPage';
 import ImagePage from '../pages/ImagePage';
 import JoinPage from "../pages/JoinPage";
-import TatooArtist from '../pages/TatooArtist';
+import DetailPage from '../pages/DetailPage';
 const Stack = createStackNavigator();
 
 
@@ -21,7 +21,7 @@ const StackNavigator = () =>{
             <Stack.Screen name="ImagePage" component={ImagePage}/>
             <Stack.Screen name="JoinPage" component={JoinPage} options={{headerShown:false}}/>
             <Stack.Screen name="SearchPage" component={SearchPage} options={{headerShown:false}}/>
-            <Stack.Screen name="TatooArtist" component={TatooArtist} options={{headerShown:false}}/>
+            <Stack.Screen name="DetailPage" component={DetailPage} options={{headerShown:false}}/>
             </Stack.Navigator>
             
     )

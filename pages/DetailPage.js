@@ -2,7 +2,7 @@ import React,{useState,useEffect} from "react"
 import { StyleSheet, Image,View, Text, ScrollView,TouchableOpacity,TextInput, RefreshControl } from 'react-native';
 import * as Linking from 'expo-linking';
 import { Fontisto } from "@expo/vector-icons";
-const TatooArtist=({route})=>{
+const DetailPage=({route})=>{
 
 
     const Artist=route.params
@@ -50,4 +50,4 @@ const styles=StyleSheet.create({
     },
     
 })
-export default TatooArtist;
+export default DetailPage;

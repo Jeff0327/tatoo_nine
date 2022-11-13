@@ -6,7 +6,7 @@ import LoadingPage from "./pages/LoadingPage";
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import LoginPage from "./pages/LoginPage";
 import LikePage from "./pages/LikePage";
-import TatooArtist from "./pages/TatooArtist";
+// import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import { Fontisto } from "@expo/vector-icons";
 import {useFonts} from "expo-font";
 import { StyleSheet,TextInput, Image,View, Text, Alert,ScrollView,TouchableOpacity,ImageBackground ,PhoneNumberInput} from 'react-native';
@@ -16,7 +16,9 @@ const Drawer = createDrawerNavigator();
 export default function App() {
 
     const [loading,setLoading] =useState(true)
-
+  //   const googleSigninConfigure = () => { 
+  //     GoogleSignin.configure({ webClientId: '627649833511-of8bu448opk9ri5u8a0pvr696h1lfhtm.apps.googleusercontent.com'}) 
+  // }
     const [loaded] = useFonts({
       //Eng
       
@@ -35,6 +37,7 @@ export default function App() {
       setTimeout(()=>{
         setLoading(false);
       },3000)
+      // googleSigninConfigure();
     },[])
 
     if(loading){
