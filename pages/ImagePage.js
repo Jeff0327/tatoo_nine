@@ -16,7 +16,7 @@ export default function ImagePage({content,navigation}){
         
         
         
-        let userUniqueId;
+        
         const [loaded] = useFonts({
             //Eng
             Alumni_Regular:require("../assets/font/AlumniSansPinstripe-Regular.ttf"),
@@ -34,8 +34,8 @@ export default function ImagePage({content,navigation}){
             likely();
             
         },[like])
-        const likely = async (asd) => {
-        
+        const likely = async () => {
+            let userUniqueId;
             if(isIOS){
             let iosId = await Application.getIosIdForVendorAsync();
                 userUniqueId = iosId
@@ -44,12 +44,12 @@ export default function ImagePage({content,navigation}){
             }
             
             if(like===true){
-                firebase_db.ref('/like/'+userUniqueId).push(content,function(error){
+                firebase_db.ref('/like/'+userUniqueId+content.idx).set(content,function(error){
                     console.log(error)
                     
                 });
             }else{
-                firebase_db.ref('/like/'+userUniqueId).remove()
+                firebase_db.ref('/like/'+userUniqueId+content.idx).remove()
             }
                
         }
