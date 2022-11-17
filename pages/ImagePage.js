@@ -2,16 +2,14 @@ import React ,{useState,useEffect, useContext} from "react";
 import { StyleSheet, Image,View, Text, ScrollView,TouchableOpacity,Share } from 'react-native';
 import {useFonts} from "expo-font";
 import { Fontisto } from "@expo/vector-icons";
-import * as Application from 'expo-application';
 
-const isIOS = Platform.OS === 'ios';
 
-import {firebase_db} from "../firebaseConfig";
+
 
 const TATOOISTIMG="https://firebasestorage.googleapis.com/v0/b/tatoo-nine.appspot.com/o/images%2Fcontent%2Fblackwalk.jpg?alt=media&token=501816e3-ff9b-48d7-b0c7-80840355a41e"
 export default function ImagePage({content,navigation}){
     
-        const [like, onlike]=useState(false);
+        
 
         
         
@@ -31,28 +29,10 @@ export default function ImagePage({content,navigation}){
             Cute_Font:require("../assets/font/CuteFont-Regular.ttf"),
         })
         useEffect(()=>{
-            likely();
             
-        },[like])
-        const likely = async () => {
-            let userUniqueId;
-            if(isIOS){
-            let iosId = await Application.getIosIdForVendorAsync();
-                userUniqueId = iosId
-            }else{
-                userUniqueId = await Application.androidId
-            }
             
-            if(like===true){
-                firebase_db.ref('/like/'+userUniqueId+content.idx).set(content,function(error){
-                    console.log(error)
-                    
-                });
-            }else{
-                firebase_db.ref('/like/'+userUniqueId+content.idx).remove()
-            }
-               
-        }
+        },[])
+        
         
         
         
@@ -62,12 +42,7 @@ export default function ImagePage({content,navigation}){
         const onShare=()=>{
             Share.share({message:`${content.image}`})
         }
-        const onLike=()=>{
-            like===true ? 
-            onlike(false)  : 
-            onlike(true) 
-            
-        }
+        
         
         
         return(
@@ -88,13 +63,7 @@ export default function ImagePage({content,navigation}){
                     <Text style={styles.title}>{`| ${content.title} | `}</Text>
                     <Text style={styles.desc} numberOfLines={2}>{content.desc.length > 20 ? content.desc.slice(0,20)+'...' : content.desc}</Text>
                     </View>
-                    <View style={{flexDirection:"row", justifyContent:"space-between"}}>
-                        <TouchableOpacity onPress={onLike}style={styles.likeBtn}>
-                            {like===false ?
-                            <Fontisto style={styles.fontImg} name='heart-alt'/> :
-                            <Fontisto style={styles.fontImg} name='heart'/>
-                            }
-                        </TouchableOpacity>   
+                    <View style={{flexDirection:"row", justifyContent:"space-between"}}>  
                         <TouchableOpacity onPress={onShare}style={styles.shareBtn}>
                             <Fontisto style={styles.fontImg} name='share-a'/>
                         </TouchableOpacity>
@@ -147,9 +116,6 @@ const styles=StyleSheet.create({
     },
     shareBtn:{
         alignSelf:"flex-end",
-    },
-    likeBtn:{
-        alignSelf:"flex-start",
     },
     fontImg:{
         fontSize:20,

@@ -1,5 +1,4 @@
 import React,{useState,useEffect} from  "react";
-import MainPage from "./pages/MainPage";
 import { NavigationContainer } from "@react-navigation/native";
 import StackNavigator from "./navigation/StackNavigator";
 import LoadingPage from "./pages/LoadingPage";
@@ -16,9 +15,7 @@ const Drawer = createDrawerNavigator();
 export default function App() {
 
     const [loading,setLoading] =useState(true)
-  //   const googleSigninConfigure = () => { 
-  //     GoogleSignin.configure({ webClientId: '627649833511-of8bu448opk9ri5u8a0pvr696h1lfhtm.apps.googleusercontent.com'}) 
-  // }
+  
     const [loaded] = useFonts({
       //Eng
       
@@ -39,7 +36,9 @@ export default function App() {
       },3000)
       // googleSigninConfigure();
     },[])
-
+    if(!loaded){
+      return null;
+  }
     if(loading){
       return <LoadingPage/>
     }else{
@@ -79,6 +78,7 @@ export default function App() {
         />
         <Drawer.Screen name="로그인" component={LoginPage} />
         <Drawer.Screen name="찜 목록" component={LikePage} />
+        
       </Drawer.Navigator>
     </NavigationContainer>
     )
