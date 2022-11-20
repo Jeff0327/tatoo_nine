@@ -6,7 +6,7 @@ import ImagePage from "./ImagePage";
 import { Fontisto } from "@expo/vector-icons";
 const isIOS = Platform.OS === 'ios';
 
-export default function LikePage({navigation,content}){
+export default function LikePage({navigation}){
     
       const [like,onLike]=useState([])
     const [ready, setReady]=useState(true)
@@ -25,7 +25,7 @@ export default function LikePage({navigation,content}){
                 userUniqueId = await Application.androidId
             }
             
-            firebase_db.ref('/like/'+userUniqueId).once("value").then((snapshot)=>{
+            firebase_db.ref('/like/'+userUniqueId+like.idx).once("value").then((snapshot)=>{
                 let tip=snapshot.val();
                 
                 

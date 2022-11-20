@@ -3,7 +3,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import StackNavigator from "./navigation/StackNavigator";
 import LoadingPage from "./pages/LoadingPage";
 import { createDrawerNavigator } from '@react-navigation/drawer';
-import LoginPage from "./pages/LoginPage";
+import Notice from "./pages/Notice";
 import LikePage from "./pages/LikePage";
 // import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import { Fontisto } from "@expo/vector-icons";
@@ -76,7 +76,7 @@ export default function App() {
                 },
             })}  
         />
-        <Drawer.Screen name="로그인" component={LoginPage} />
+        <Drawer.Screen name="공지사항" component={Notice} />
         <Drawer.Screen name="찜 목록" component={LikePage} />
         
       </Drawer.Navigator>

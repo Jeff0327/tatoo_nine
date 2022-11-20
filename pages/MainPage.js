@@ -48,7 +48,10 @@ export default function MainPage({navigation, route}) {
         setPlus(false)
       }
     }
-    
+    const btn0=()=>{
+      setResult(onstate.filter((d)=>{return d.catagory=="전체"}))
+      setFilt("전체");
+    }
     const btn1=()=>{
       setResult(onstate.filter((d)=>{return d.catagory=="블랙워크"}))
       setFilt("버튼1");
@@ -93,6 +96,12 @@ export default function MainPage({navigation, route}) {
     <View>
       <ScrollView>
           <View style={styles.BtnContainer}>
+          <View>
+                <TouchableOpacity style={styles.Btn} onPress={btn0}>
+                  <Image style={styles.BtnImg} source={{uri:DEFINE_LINEWALK}}/>
+                  <Text style={styles.BtnText}>전체보기</Text>
+                </TouchableOpacity>
+                </View>
             <View>
             
             <TouchableOpacity style={styles.Btn} onPress={btn1}>
@@ -124,21 +133,14 @@ export default function MainPage({navigation, route}) {
               <Text style={styles.BtnText}>이레즈미</Text>
             </TouchableOpacity>
             </View>
-            <View>
+        {plus ? 
+            <View style={styles.HideView}>
+              <View>
             <TouchableOpacity style={styles.Btn} onPress={btn6}>
               <Image style={styles.BtnImg} source={{uri:DEFINE_CHIKANO}}/>
               <Text style={styles.BtnText}>치카노</Text>
             </TouchableOpacity>
             </View>
-
-        {plus ? 
-            <View style={styles.HideView}>
-              <View>
-                <TouchableOpacity style={styles.Btn} onPress={btn7}>
-                  <Image style={styles.BtnImg} source={{uri:DEFINE_LINEWALK}}/>
-                  <Text style={styles.BtnText}>기타1</Text>
-                </TouchableOpacity>
-                </View>
                 <View>
                 <TouchableOpacity style={styles.Btn} onPress={btn8}>
                   <Image style={styles.BtnImg} source={{uri:DEFINE_IREZUMI}}/>

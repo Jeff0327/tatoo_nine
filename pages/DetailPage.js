@@ -76,7 +76,7 @@ const DetailPage=({content,navigation,route})=>{
             </TouchableOpacity>  
             <TouchableOpacity onPress={link} style={styles.instaBtn }>
                 <Fontisto style={styles.fontImg} name='instagram'/>
-                <Text>Insta</Text>
+                <Text style={styles.instaText}>Instagram</Text>
             </TouchableOpacity>
             <TouchableOpacity onPress={kakao} style={styles.likeBtn}>
                 <Fontisto style={styles.fontImg} name='comments'/>
@@ -117,6 +117,9 @@ const styles=StyleSheet.create({
         backgroundColor:"pink",
         flexDirection:"row",
         padding:5,
+        
+    },
+    instaText:{
         fontFamily:"Lobster"
     }
     
