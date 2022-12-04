@@ -1,203 +1,197 @@
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import React ,{useState,useEffect, useContext} from "react";
-import { StyleSheet, Image,View, Text, ScrollView,TouchableOpacity,TextInput } from 'react-native';
-import {firebase_db} from "../firebaseConfig";
+import React, { useState, useEffect, useContext } from "react";
+import {
+  StyleSheet,
+  Image,
+  View,
+  Text,
+  ScrollView,
+  TouchableOpacity,
+  TextInput,
+} from "react-native";
+import { firebase_db } from "../firebaseConfig";
 import ImagePage from "./ImagePage";
-import * as Application from 'expo-application';
+import * as Application from "expo-application";
 import { Fontisto } from "@expo/vector-icons";
 import {
   setTestDeviceIDAsync,
   AdMobBanner,
   AdMobInterstitial,
   PublisherBanner,
-  AdMobRewarded
-} from 'expo-ads-admob';
-export default function SearchPage({navigation,route}){
-    
-    const [text,setText]=useState("");
-    const [onstate,onSetState] = useState([]);
-    // const [ready, setReady]=useState(true)
-    const [found,setFound]=useState([]);
-    
-    
-    
+  AdMobRewarded,
+} from "expo-ads-admob";
+export default function SearchPage({ navigation, route }) {
+  const [text, setText] = useState("");
+  const [onstate, onSetState] = useState([]);
+  const [found, setFound] = useState([]);
 
-    const onChangeText=(text)=>{
-      setText(text);
-    }
-    
-    console.log(text);
-    // console.log(text);
-    useEffect(()=>{
-      
-      
-      firebase_db.ref('/images').once('value').then((snapshot)=>{
-        
-        let tip=snapshot.val();
-        
-          onSetState(tip)
-      })
-    //   found =onstate.map((e)=>{
-    //     if(
-    //         e.catagory.indexOf(text)!==-1
-            
-    //         ) 
-    //     return e
-        
-    // }).filter((e)=>{return e!==undefined})
-     setFound(onstate.map((e)=>{
-      if(
-        e.catagory.indexOf(text)!==-1||
-        e.title.indexOf(text)!==-1||
-        e.desc.indexOf(text)!==-1||
-        e.where.indexOf(text)!==-1
-        )
-      return e
-      }).filter((e)=>{
-        return e!==undefined
-      }))
-      },[text])
+  const onChangeText = (text) => {
+    setText(text);
+  };
 
-    return(
-      <View style={styles.Container}>
+  useEffect(() => {
+    firebase_db
+      .ref("/images")
+      .once("value")
+      .then((snapshot) => {
+        let tip = snapshot.val();
+
+        onSetState(tip);
+      });
+
+    setFound(
+      onstate
+        .map((e) => {
+          if (
+            e.catagory.indexOf(text) !== -1 ||
+            e.title.indexOf(text) !== -1 ||
+            e.desc.indexOf(text) !== -1 ||
+            e.where.indexOf(text) !== -1
+          )
+            return e;
+        })
+        .filter((e) => {
+          return e !== undefined;
+        })
+    );
+  }, [text]);
+
+  return (
+    <View style={styles.Container}>
       <View style={styles.inputContainer}>
         <View style={styles.touch}>
-          <TouchableOpacity onPress={()=>{navigation.goBack("MainPage")}}>
-            <Fontisto style={styles.fontImg} name='angle-left'/>
+          <TouchableOpacity
+            onPress={() => {
+              navigation.goBack("MainPage");
+            }}
+          >
+            <Fontisto style={styles.fontImg} name="angle-left" />
           </TouchableOpacity>
         </View>
-        <TextInput 
-        placeholder="검색어를 입력하세요"
-        value={text}
-        onChangeText={onChangeText}
+        <TextInput
+          placeholder="검색어를 입력하세요"
+          value={text}
+          onChangeText={onChangeText}
         />
       </View>
       <ScrollView style={styles.ImgContainer}>
-
-      {found.map((content, i)=>{
-          return(
-          <ImagePage content={content} key={i} navigation={navigation}/>
-          )
-        })
-        }
-        
+        {found.map((content, i) => {
+          return (
+            <ImagePage content={content} key={i} navigation={navigation} />
+          );
+        })}
       </ScrollView>
-      {text ==="" ? 
-      <View style={styles.Allbanner}>
-      <View style={styles.bannerContainer}>
-      {Platform.OS === 'ios' ? (
-                <AdMobBanner
-                  bannerSize="fullBanner"
-                  servePersonalizedAds={true}
-                  adUnitID="ca-app-pub-5579008343368676/6885179499"
-                  style={styles.banner}
-                />
+      {text === "" ? (
+        <View style={styles.Allbanner}>
+          <View style={styles.bannerContainer}>
+            {Platform.OS === "ios" ? (
+              <AdMobBanner
+                bannerSize="fullBanner"
+                servePersonalizedAds={true}
+                adUnitID="ca-app-pub-5579008343368676/6885179499"
+                style={styles.banner}
+              />
             ) : (
-                <AdMobBanner
-                  bannerSize="fullBanner"
-                  servePersonalizedAds={true}
-                  adUnitID="ca-app-pub-5579008343368676/9202552776"
-                  style={styles.banner}
-                />
+              <AdMobBanner
+                bannerSize="fullBanner"
+                servePersonalizedAds={true}
+                adUnitID="ca-app-pub-5579008343368676/9202552776"
+                style={styles.banner}
+              />
             )}
-      </View>
-       <View style={styles.bannerContainer}>
-       {Platform.OS === 'ios' ? (
-                 <AdMobBanner
-                   bannerSize="fullBanner"
-                   servePersonalizedAds={true}
-                   adUnitID="ca-app-pub-5579008343368676/6885179499"
-                   style={styles.banner}
-                 />
-             ) : (
-                 <AdMobBanner
-                   bannerSize="fullBanner"
-                   servePersonalizedAds={true}
-                   adUnitID="ca-app-pub-5579008343368676/9202552776"
-                   style={styles.banner}
-                 />
-             )}
-       </View>
-        <View style={styles.bannerContainer}>
-        {Platform.OS === 'ios' ? (
-                  <AdMobBanner
-                    bannerSize="fullBanner"
-                    servePersonalizedAds={true}
-                    adUnitID="ca-app-pub-5579008343368676/6885179499"
-                    style={styles.banner}
-                  />
-              ) : (
-                  <AdMobBanner
-                    bannerSize="fullBanner"
-                    servePersonalizedAds={true}
-                    adUnitID="ca-app-pub-5579008343368676/9202552776"
-                    style={styles.banner}
-                  />
-              )}
+          </View>
+          <View style={styles.bannerContainer}>
+            {Platform.OS === "ios" ? (
+              <AdMobBanner
+                bannerSize="fullBanner"
+                servePersonalizedAds={true}
+                adUnitID="ca-app-pub-5579008343368676/6885179499"
+                style={styles.banner}
+              />
+            ) : (
+              <AdMobBanner
+                bannerSize="fullBanner"
+                servePersonalizedAds={true}
+                adUnitID="ca-app-pub-5579008343368676/9202552776"
+                style={styles.banner}
+              />
+            )}
+          </View>
+          <View style={styles.bannerContainer}>
+            {Platform.OS === "ios" ? (
+              <AdMobBanner
+                bannerSize="fullBanner"
+                servePersonalizedAds={true}
+                adUnitID="ca-app-pub-5579008343368676/6885179499"
+                style={styles.banner}
+              />
+            ) : (
+              <AdMobBanner
+                bannerSize="fullBanner"
+                servePersonalizedAds={true}
+                adUnitID="ca-app-pub-5579008343368676/9202552776"
+                style={styles.banner}
+              />
+            )}
+          </View>
+          <View style={styles.bannerContainer}>
+            {Platform.OS === "ios" ? (
+              <AdMobBanner
+                bannerSize="fullBanner"
+                servePersonalizedAds={true}
+                adUnitID="ca-app-pub-5579008343368676/6885179499"
+                style={styles.banner}
+              />
+            ) : (
+              <AdMobBanner
+                bannerSize="fullBanner"
+                servePersonalizedAds={true}
+                adUnitID="ca-app-pub-5579008343368676/9202552776"
+                style={styles.banner}
+              />
+            )}
+          </View>
         </View>
-        <View style={styles.bannerContainer}>
-        {Platform.OS === 'ios' ? (
-                  <AdMobBanner
-                    bannerSize="fullBanner"
-                    servePersonalizedAds={true}
-                    adUnitID="ca-app-pub-5579008343368676/6885179499"
-                    style={styles.banner}
-                  />
-              ) : (
-                  <AdMobBanner
-                    bannerSize="fullBanner"
-                    servePersonalizedAds={true}
-                    adUnitID="ca-app-pub-5579008343368676/9202552776"
-                    style={styles.banner}
-                  />
-              )}
-        </View>
-        </View>
-      : null}
-      
-      </View>
-    )
+      ) : null}
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({
-  Container:{
-    marginBottom:20,
+  Container: {
+    marginBottom: 20,
   },
-  inputContainer:{
-    
-    margin:25,
-    flexDirection:"row",
+  inputContainer: {
+    margin: 25,
+    flexDirection: "row",
   },
-  touch:{
-    marginRight:10,
+  touch: {
+    marginRight: 10,
   },
-    fontstyle:{
-        fontSize:15,
-    },
-    ImgContainer:{
-    marginTop:10,
-    marginBottom:40,
-    paddingBottom:30,
-    
+  fontstyle: {
+    fontSize: 15,
   },
-  fontImg:{
-    fontSize:30,
-    marginRight:5,
+  ImgContainer: {
+    marginTop: 10,
+    marginBottom: 40,
+    paddingBottom: 30,
   },
-  Allbanner:{
-    justifyContent:"center",
+  fontImg: {
+    fontSize: 30,
+    marginRight: 5,
   },
-  bannerContainer:{
-    flex:1,
-    marginTop:15,
-    marginLeft:-30,
-    marginBottom:70,
+  Allbanner: {
+    justifyContent: "center",
   },
-  banner:{
-    width:"100%",
-    height:100,
-    position: 'absolute',
-    bottom:-30,
-    
-  }
-})
+  bannerContainer: {
+    flex: 1,
+    marginTop: 15,
+    marginLeft: -30,
+    marginBottom: 70,
+  },
+  banner: {
+    width: "100%",
+    height: 100,
+    position: "absolute",
+    bottom: -30,
+  },
+});
